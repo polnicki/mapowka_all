@@ -89,6 +89,7 @@ function renderTaskList() {
         li.className = "done";
         list.appendChild(li);
     });
+    document.getElementById("nextBtn").style.display = (started && currentIdx !== null && pozostale.length > 0) ? "" : "none";
 }
 
 function startTimer() {
@@ -173,26 +174,31 @@ function startGame() {
         document.getElementById("lives").textContent = lives;
         document.getElementById("msg").textContent = "";
         document.getElementById("restart").style.display = "none";
+        document.getElementById("ranking").style.display = "none";
         renderTaskList();
         renderMarkers();
+        if (pozostale.length > 0) {
+            selectName(pozostale[0]);
+        }
         startTimer();
     });
 }
 
-function resetGame() {
-    stopTimer();
-    document.getElementById("nameEntry").style.display = "";
-    document.getElementById("timer").style.display = "none";
-    document.getElementById("livesBox").style.display = "none";
-    document.getElementById("showNamesLabel").style.display = "none";
-    document.getElementById("endNow").style.display = "none";
-    document.getElementById("tasklist").innerHTML = "";
-    document.getElementById("msg").textContent = "";
-    document.getElementById("restart").style.display = "none";
-    started = false;
-    getBestScores();
-    setMapView(document.getElementById('mapRegion').value);
-}
+document.getElementById("nextBtn").onclick = function() {
+    if (!started || currentIdx === null || pozostale.length === 0) return;
+    const idxPos = pozostale.indexOf(currentIdx);
+    if (idxPos > -1) {
+        pozostale.splice(idxPos, 1);
+        pozostale.push(currentIdx);
+    }
+    if (pozostale.length > 0) {
+        selectName(pozostale[0]);
+    } else {
+        currentIdx = null;
+        selectedName = null;
+        renderTaskList();
+    }
+};
 
 function selectName(idx) {
     currentIdx = idx;
@@ -217,7 +223,11 @@ function markerClicked(idx) {
         selectedName = null;
         renderTaskList();
         renderMarkers();
-        checkWin();
+        if (pozostale.length > 0) {
+            selectName(pozostale[0]);
+        } else {
+            checkWin();
+        }
     } else {
         lives--;
         pomylki++;
@@ -247,6 +257,7 @@ function checkWin() {
             Czas: <b>${time}s</b>`;
         document.getElementById("restart").style.display = "";
         document.getElementById("endNow").disabled = true;
+        document.getElementById("ranking").style.display = "";
         started = false;
         submitScore(playerName, punkty, time, trafienia, pomylki, liczbaObiektow, region, version);
         getBestScores();
@@ -265,13 +276,34 @@ document.getElementById("endNow").onclick = function() {
         Czas: <b>${time}s</b>`;
     document.getElementById("restart").style.display = "";
     document.getElementById("endNow").disabled = true;
+    document.getElementById("ranking").style.display = "";
     started = false;
     submitScore(playerName, punkty, time, trafienia, pomylki, liczbaObiektow, region, version);
     getBestScores();
 };
 
+function resetGame() {
+    stopTimer();
+    document.getElementById("nameEntry").style.display = "";
+    document.getElementById("timer").style.display = "none";
+    document.getElementById("livesBox").style.display = "none";
+    document.getElementById("showNamesLabel").style.display = "none";
+    document.getElementById("endNow").style.display = "none";
+    document.getElementById("tasklist").innerHTML = "";
+    document.getElementById("msg").textContent = "";
+    document.getElementById("restart").style.display = "none";
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("ranking").style.display = "none";
+    started = false;
+    currentIdx = null;
+    selectedName = null;
+    allowClick = false;
+    pozostale = [];
+    donePoints = [];
+    setMapView(document.getElementById('mapRegion').value);
+}
+
 function submitScore(name, punkty, time, trafienia, pomylki, liczbaObiektow, region_, version_) {
-    // Zapis do Firebase pod regionem i wersją
     db.ref("scores/" + region_ + "/" + version_).push({name, punkty, time, trafienia, pomylki, liczbaObiektow});
 }
 function getBestScores() {
