@@ -119,7 +119,7 @@ function stopTimer() {
 }
 
 function updateTimerSpeed() {
-    timeIncrement = showNames ? 2 : 1;
+    timeIncrement = showNames ? 3 : 1;
 }
 
 function shuffle(array) {
