@@ -12,8 +12,10 @@ const kolory = {
     "Góry": "#263238"
 };
 
-let lives, currentIdx, pozostale, markers, selectedName, allowClick, donePoints, showNames;
+let lives, currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
 let timerInterval, time, started, playerName;
+let showNames = false;
+let timeIncrement = 1; // ile sekund dodajemy za każde "tyknięcie"
 
 // Zmienna na obiekty mapy (ładowana dynamicznie)
 window.obiekty = []; // Używaj window.obiekty do nadpisywania z ładowanego skryptu
@@ -87,19 +89,27 @@ function renderTaskList() {
     });
 }
 
-// Timer gry
+// Timer gry – nie restartujemy czasu!
 function startTimer() {
     document.getElementById("timer").style.display = "";
     time = 0;
     document.getElementById("timeValue").textContent = time;
+    stopTimer();
+    timeIncrement = showNames ? 2 : 1;
     timerInterval = setInterval(() => {
         if (!started) return;
-        time++;
+        time += timeIncrement;
         document.getElementById("timeValue").textContent = time;
     }, 1000);
 }
 function stopTimer() {
     clearInterval(timerInterval);
+}
+
+// Funkcja do zmiany tempa timera (bez restartu czasu)
+function updateTimerSpeed() {
+    // Po prostu zmieniamy wartość timeIncrement
+    timeIncrement = showNames ? 2 : 1;
 }
 
 // Losowa kolejność zadań
@@ -120,7 +130,6 @@ function loadObiekty(region, version, callback) {
     const oldScript = document.getElementById('obiektyScript');
     if (oldScript) oldScript.remove();
 
-    // Zresetuj window.obiekty przed załadowaniem nowego pliku
     window.obiekty = [];
 
     const script = document.createElement('script');
@@ -282,10 +291,14 @@ function renderRanking(scores) {
 // Eventy UI
 document.getElementById("startBtn").onclick = startGame;
 document.getElementById("restart").onclick = resetGame;
+
+// Zmiana checkboxa w trakcie gry – tylko zmiana tempa timera, bez restartu!
 document.getElementById("showNames").onchange = function() {
     showNames = this.checked;
+    updateTimerSpeed();
     renderMarkers();
 };
+
 // Zmiana mapy/wersji resetuje grę
 document.getElementById("mapRegion").onchange = resetGame;
 document.getElementById("mapVersion").onchange = resetGame;
