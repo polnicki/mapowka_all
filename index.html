@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>GeoQuiz Kontynenty – Zawody</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+<h1 style="text-align:center;">GeoQuiz Kontynenty – Zawody</h1>
+<div id="main">
+    <div id="map"></div>
+    <div id="sidebar">
+        <div id="mapSelect" style="margin-bottom:20px;">
+            <label for="mapRegion">Region:</label>
+            <select id="mapRegion">
+                <option value="europa">Europa</option>
+                <option value="azja">Azja</option>
+                <option value="ameryka">Ameryka</option>
+                <option value="australia">Australia</option>
+                <option value="afryka">Afryka</option>
+                <option value="polska">Polska</option>
+            </select>
+            <label for="mapVersion" style="margin-left:14px;">Wersja:</label>
+            <select id="mapVersion">
+                <option value="basic">Podstawowa</option>
+                <option value="ext">Rozszerzona</option>
+            </select>
+        </div>
+        <div id="nameEntry">
+            <label for="playerName">Imię gracza:</label>
+            <input type="text" id="playerName" maxlength="32">
+            <button id="startBtn">Start</button>
+        </div>
+        <div id="timer" style="display:none;">Twój czas: <span id="timeValue">0</span>s</div>
+        <div class="lives" id="livesBox" style="display:none;">Życia: <span id="lives">15</span></div>
+        <label id="showNamesLabel" style="display:none;">
+            <input type="checkbox" id="showNames"> Pokazuj nazwy punktów na mapie
+        </label>
+        <ul id="tasklist"></ul>
+        <div id="msg"></div>
+        <button id="endNow" style="display:none;">Zakończ teraz i wyślij wynik</button>
+        <button id="restart" style="display:none;">Zagraj ponownie</button>
+        <div id="ranking">
+            <h2>Najlepsze czasy (TOP 10)</h2>
+            <div id="rankingTable">Ładowanie...</div>
+        </div>
+    </div>
+</div>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/mapa.js"></script>
+</body>
+</html>
