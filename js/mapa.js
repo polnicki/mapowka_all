@@ -7,9 +7,16 @@ const kolory = {
     "Wyspa": "#e91e63",
     "Rzeka": "#009688",
     "Jezioro": "#2196f3",
-    "Nizina": "#757575",
+    "Nizina": "#500606",
     "Wyżyna": "#6d4c41",
-    "Góry": "#263238"
+    "Góry": "#263238",
+    "Rów": "#00b8f4",
+    "Mierzeja": "#40c2b7",
+    "Zalew": "#a23ee5",
+    "Pobrzeże": "#8048a4",
+    "Pojezierze": "#1b99c0",
+    "Kotlina" : "#330b0b",
+
 };
 
 let lives, currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
