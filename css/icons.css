@@ -1,0 +1,28 @@
+.icon-geopoint {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 6px;
+  /* For SVG: force color via filter (only for monochrome SVG) */
+  filter: none;
+}
+.icon-geopoint.color-morze     { filter: drop-shadow(0 0 0 #0074D9); }
+.icon-geopoint.color-ciesnina  { filter: drop-shadow(0 0 0 #2ECC40); }
+.icon-geopoint.color-polwysep  { filter: drop-shadow(0 0 0 #FFDC00); }
+.icon-geopoint.color-zatoka    { filter: drop-shadow(0 0 0 #FF4136); }
+.icon-geopoint.color-wyspa     { filter: drop-shadow(0 0 0 #B10DC9); }
+.icon-geopoint.color-rzeka     { filter: drop-shadow(0 0 0 #39CCCC); }
+.icon-geopoint.color-jezioro   { filter: drop-shadow(0 0 0 #7FDBFF); }
+.icon-geopoint.color-nizina    { filter: drop-shadow(0 0 0 #3D9970); }
+.icon-geopoint.color-wyzyna    { filter: drop-shadow(0 0 0 #F012BE); }
+.icon-geopoint.color-gory      { filter: drop-shadow(0 0 0 #111111); }
+.icon-geopoint.color-row       { filter: drop-shadow(0 0 0 #85144b); }
+.icon-geopoint.color-mierzeja  { filter: drop-shadow(0 0 0 #FF851B); }
+.icon-geopoint.color-zalew     { filter: drop-shadow(0 0 0 #AAAAAA); }
+.icon-geopoint.color-pobrzeze  { filter: drop-shadow(0 0 0 #FF69B4); }
+.icon-geopoint.color-pojezierze{ filter: drop-shadow(0 0 0 #01FF70); }
+.icon-geopoint.color-kotlina   { filter: drop-shadow(0 0 0 #8B4513); }
+.icon-geopoint.color-ocean     { filter: drop-shadow(0 0 0 #001F3F); }
+.icon-geopoint.color-przyladek { filter: drop-shadow(0 0 0 #FFD700); }
+.icon-geopoint.color-pustynia  { filter: drop-shadow(0 0 0 #F7B32B); }
+.icon-geopoint.color-kanal     { filter: drop-shadow(0 0 0 #8B008B); }

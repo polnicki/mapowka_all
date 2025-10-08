@@ -1,25 +1,25 @@
-// Kolory dla typów obiektów
+// Kolory dla typów obiektów (opcjonalnie do użycia np. w tło, podpowiedzi)
 const kolory = {
-    "Morze": "#0074D9",        // jasny niebieski
-    "Cieśnina": "#2ECC40",     // intensywna zieleń
-    "Półwysep": "#FFDC00",     // żółty (dobrze widoczny)
-    "Zatoka": "#FF4136",       // mocna czerwień
-    "Wyspa": "#B10DC9",        // fioletowy
-    "Rzeka": "#39CCCC",        // turkusowy
-    "Jezioro": "#7FDBFF",      // jasny błękit
-    "Nizina": "#3D9970",       // zieleń morska
-    "Wyżyna": "#F012BE",       // magenta
-    "Góry": "#111111",         // głęboka czerń
-    "Rów": "#85144b",          // ciemny fiolet/bordo
-    "Mierzeja": "#FF851B",     // pomarańczowy
-    "Zalew": "#AAAAAA",        // jasnoszary
-    "Pobrzeże": "#FF69B4",     // różowy
-    "Pojezierze": "#01FF70",   // jaskrawa zieleń
-    "Kotlina": "#8B4513",      // brąz
-    "Ocean": "#001F3F",        // granat
-    "Przylądek": "#FFD700",    // złoty
-    "Pustynia": "#F7B32B",     // piaskowy
-    "Kanał": "#8B008B"         // ciemny fiolet
+    "Morze": "#0074D9",
+    "Cieśnina": "#2ECC40",
+    "Półwysep": "#FFDC00",
+    "Zatoka": "#FF4136",
+    "Wyspa": "#B10DC9",
+    "Rzeka": "#39CCCC",
+    "Jezioro": "#7FDBFF",
+    "Nizina": "#3D9970",
+    "Wyżyna": "#F012BE",
+    "Góry": "#111111",
+    "Rów": "#85144b",
+    "Mierzeja": "#FF851B",
+    "Zalew": "#AAAAAA",
+    "Pobrzeże": "#FF69B4",
+    "Pojezierze": "#01FF70",
+    "Kotlina" : "#8B4513",
+    "Ocean" : "#001F3F",
+    "Przylądek": "#FFD700",
+    "Pustynia": "#F7B32B",
+    "Kanał" : "#8B008B"
 };
 
 let lives, currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
@@ -27,14 +27,12 @@ let timerInterval, time, started, playerName;
 let showNames = false;
 let timeIncrement = 1;
 
-// DODAJ: zmienne do punktacji
 let trafienia = 0;
 let pomylki = 0;
 let region = "europa";
 let version = "basic";
 let liczbaObiektow = 0;
 
-// Zmienna na obiekty mapy (ładowana dynamicznie)
 window.obiekty = [];
 
 var map = L.map('map').setView([54, 15], 4);
@@ -53,12 +51,14 @@ function setMapView(region_) {
     map.setView(v.center, v.zoom);
 }
 
-function icon(color) {
-    let size = (window.innerWidth < 700) ? 32 : 16;
+// ZMIANA: Użycie ikony SVG zamiast kolorowego punktu
+function icon(typ) {
+    let size = (window.innerWidth < 700) ? 32 : 24;
+    // Użyj geoIconHTML z icons.js
     return L.divIcon({
         className: "custom-icon",
         iconSize: [size, size],
-        html: `<span style="display:inline-block;width:${size}px;height:${size}px;border-radius:50%;background:${color};border:2px solid #fff"></span>`
+        html: geoIconHTML(typ, size)
     });
 }
 
@@ -67,7 +67,7 @@ function renderMarkers() {
     markers = [];
     window.obiekty.forEach((p, idx) => {
         if (!pozostale.includes(idx)) return;
-        const marker = L.marker([p[1], p[2]], { icon: icon(kolory[p[3]]) });
+        const marker = L.marker([p[1], p[2]], { icon: icon(p[3]) });
         marker.addTo(map)
             .on("click", () => markerClicked(idx))
             .on("touchstart", () => markerClicked(idx));
@@ -81,10 +81,9 @@ function renderTaskList() {
     list.innerHTML = "";
     pozostale.forEach(idx => {
         const typ = window.obiekty[idx][3];
-        const kolor = kolory[typ];
+        // Użyj geoIconHTML do listy
         const li = document.createElement("li");
-        li.textContent = window.obiekty[idx][0];
-        li.style.color = kolor;
+        li.innerHTML = `${geoIconHTML(typ)}${window.obiekty[idx][0]}`;
         li.onclick = () => selectName(idx);
         li.ontouchstart = () => selectName(idx);
         li.className = (idx === currentIdx) ? "selected" : "";
@@ -92,10 +91,8 @@ function renderTaskList() {
     });
     donePoints.forEach(idx => {
         const typ = window.obiekty[idx][3];
-        const kolor = kolory[typ];
         const li = document.createElement("li");
-        li.textContent = window.obiekty[idx][0];
-        li.style.color = kolor;
+        li.innerHTML = `${geoIconHTML(typ)}${window.obiekty[idx][0]}`;
         li.className = "done";
         list.appendChild(li);
     });
@@ -107,7 +104,7 @@ function startTimer() {
     time = 0;
     document.getElementById("timeValue").textContent = time;
     stopTimer();
-    timeIncrement = showNames ? 2 : 1;
+    timeIncrement = showNames ? 3 : 1;
     timerInterval = setInterval(() => {
         if (!started) return;
         time += timeIncrement;
@@ -119,7 +116,7 @@ function stopTimer() {
 }
 
 function updateTimerSpeed() {
-    timeIncrement = showNames ? 3 : 1;
+    timeIncrement = showNames ? 2 : 1;
 }
 
 function shuffle(array) {
