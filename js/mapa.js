@@ -22,7 +22,7 @@ const kolory = {
     "Kanał" : "#8B008B"
 };
 
-let lives, currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
+let currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
 let timerInterval, time, started, playerName;
 let showNames = false;
 let timeIncrement = 1;
@@ -51,10 +51,8 @@ function setMapView(region_) {
     map.setView(v.center, v.zoom);
 }
 
-// ZMIANA: Użycie ikony SVG zamiast kolorowego punktu
 function icon(typ) {
     let size = (window.innerWidth < 700) ? 32 : 24;
-    // Użyj geoIconHTML z icons.js
     return L.divIcon({
         className: "custom-icon",
         iconSize: [size, size],
@@ -81,7 +79,6 @@ function renderTaskList() {
     list.innerHTML = "";
     pozostale.forEach(idx => {
         const typ = window.obiekty[idx][3];
-        // Użyj geoIconHTML do listy
         const li = document.createElement("li");
         li.innerHTML = `${geoIconHTML(typ)}${window.obiekty[idx][0]}`;
         li.onclick = () => selectName(idx);
@@ -104,7 +101,7 @@ function startTimer() {
     time = 0;
     document.getElementById("timeValue").textContent = time;
     stopTimer();
-    timeIncrement = showNames ? 3 : 1;
+    timeIncrement = showNames ? 2 : 1;
     timerInterval = setInterval(() => {
         if (!started) return;
         time += timeIncrement;
@@ -116,7 +113,7 @@ function stopTimer() {
 }
 
 function updateTimerSpeed() {
-    timeIncrement = showNames ? 2 : 1;
+    timeIncrement = showNames ? 3 : 1;
 }
 
 function shuffle(array) {
@@ -162,11 +159,10 @@ function startGame() {
         setMapView(region);
         document.getElementById("nameEntry").style.display = "none";
         document.getElementById("timer").style.display = "";
-        document.getElementById("livesBox").style.display = "";
+        document.getElementById("livesBox").style.display = "none"; // Ukryj box z życiami
         document.getElementById("showNamesLabel").style.display = "";
         document.getElementById("endNow").style.display = "";
         document.getElementById("endNow").disabled = false;
-        lives = 15;
         pozostale = shuffle(window.obiekty.map((p, idx) => idx));
         donePoints = [];
         currentIdx = null;
@@ -178,7 +174,6 @@ function startGame() {
         trafienia = 0;
         pomylki = 0;
         liczbaObiektow = window.obiekty.length;
-        document.getElementById("lives").textContent = lives;
         document.getElementById("msg").textContent = "";
         document.getElementById("restart").style.display = "none";
         document.getElementById("ranking").style.display = "none";
@@ -236,19 +231,10 @@ function markerClicked(idx) {
             checkWin();
         }
     } else {
-        lives--;
         pomylki++;
         time += 10;
-        document.getElementById("lives").textContent = lives;
         document.getElementById("timeValue").textContent = time;
-        document.getElementById("msg").textContent = `Źle! +10s. Pozostało żyć: ${lives}`;
-        if (lives <= 0) {
-            document.getElementById("msg").textContent = "Koniec gry! Spróbuj ponownie.";
-            document.getElementById("restart").style.display = "";
-            document.getElementById("endNow").disabled = true;
-            stopTimer();
-            started = false;
-        }
+        document.getElementById("msg").textContent = `Źle! +10s.`;
     }
 }
 
