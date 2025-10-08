@@ -1,26 +1,25 @@
 // Kolory dla typów obiektów
 const kolory = {
-    "Morze": "#2072c7",
-    "Cieśnina": "#4caf50",
-    "Półwysep": "#ff9800",
-    "Zatoka": "#9c27b0",
-    "Wyspa": "#e91e63",
-    "Rzeka": "#009688",
-    "Jezioro": "#2196f3",
-    "Nizina": "#500606",
-    "Wyżyna": "#6d4c41",
-    "Góry": "#263238",
-    "Rów": "#00b8f4",
-    "Mierzeja": "#40c2b7",
-    "Zalew": "#a23ee5",
-    "Pobrzeże": "#8048a4",
-    "Pojezierze": "#1b99c0",
-    "Kotlina" : "#330b0b",
-    "Ocean" : "#0931bb",
-    "Przylądek": "#82fa40",
-    "Pustynia": "#cfd708",
-    "Kanał" : "#176177"
-
+    "Morze": "#0074D9",        // jasny niebieski
+    "Cieśnina": "#2ECC40",     // intensywna zieleń
+    "Półwysep": "#FFDC00",     // żółty (dobrze widoczny)
+    "Zatoka": "#FF4136",       // mocna czerwień
+    "Wyspa": "#B10DC9",        // fioletowy
+    "Rzeka": "#39CCCC",        // turkusowy
+    "Jezioro": "#7FDBFF",      // jasny błękit
+    "Nizina": "#3D9970",       // zieleń morska
+    "Wyżyna": "#F012BE",       // magenta
+    "Góry": "#111111",         // głęboka czerń
+    "Rów": "#85144b",          // ciemny fiolet/bordo
+    "Mierzeja": "#FF851B",     // pomarańczowy
+    "Zalew": "#AAAAAA",        // jasnoszary
+    "Pobrzeże": "#FF69B4",     // różowy
+    "Pojezierze": "#01FF70",   // jaskrawa zieleń
+    "Kotlina": "#8B4513",      // brąz
+    "Ocean": "#001F3F",        // granat
+    "Przylądek": "#FFD700",    // złoty
+    "Pustynia": "#F7B32B",     // piaskowy
+    "Kanał": "#8B008B"         // ciemny fiolet
 };
 
 let lives, currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
