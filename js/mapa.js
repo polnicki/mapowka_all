@@ -15,17 +15,22 @@ const kolory = {
 let lives, currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
 let timerInterval, time, started, playerName;
 let showNames = false;
-let timeIncrement = 1; // ile sekund dodajemy za każde "tyknięcie"
+let timeIncrement = 1;
+
+// DODAJ: zmienne do punktacji
+let trafienia = 0;
+let pomylki = 0;
+let region = "europa";
+let version = "basic";
+let liczbaObiektow = 0;
 
 // Zmienna na obiekty mapy (ładowana dynamicznie)
-window.obiekty = []; // Używaj window.obiekty do nadpisywania z ładowanego skryptu
+window.obiekty = [];
 
-// Mapa Leaflet
 var map = L.map('map').setView([54, 15], 4);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
 
-// Funkcja do zmiany widoku mapy według regionu
-function setMapView(region) {
+function setMapView(region_) {
     const views = {
         europa: {center: [54, 15], zoom: 4},
         azja: {center: [50, 90], zoom: 3},
@@ -34,11 +39,10 @@ function setMapView(region) {
         afryka: {center: [2, 20], zoom: 4},
         polska: {center: [52, 19], zoom: 6}
     };
-    const v = views[region] || views.europa;
+    const v = views[region_] || views.europa;
     map.setView(v.center, v.zoom);
 }
 
-// Wygląd markerów, większy na smartfonach
 function icon(color) {
     let size = (window.innerWidth < 700) ? 32 : 16;
     return L.divIcon({
@@ -48,7 +52,6 @@ function icon(color) {
     });
 }
 
-// Renderowanie markerów na mapie
 function renderMarkers() {
     if (markers) markers.forEach(m => map.removeLayer(m));
     markers = [];
@@ -63,7 +66,6 @@ function renderMarkers() {
     });
 }
 
-// Renderowanie listy zadań
 function renderTaskList() {
     const list = document.getElementById("tasklist");
     list.innerHTML = "";
@@ -89,7 +91,6 @@ function renderTaskList() {
     });
 }
 
-// Timer gry – nie restartujemy czasu!
 function startTimer() {
     document.getElementById("timer").style.display = "";
     time = 0;
@@ -106,13 +107,10 @@ function stopTimer() {
     clearInterval(timerInterval);
 }
 
-// Funkcja do zmiany tempa timera (bez restartu czasu)
 function updateTimerSpeed() {
-    // Po prostu zmieniamy wartość timeIncrement
     timeIncrement = showNames ? 2 : 1;
 }
 
-// Losowa kolejność zadań
 function shuffle(array) {
     let a = array.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -122,11 +120,8 @@ function shuffle(array) {
     return a;
 }
 
-// Dynamiczne ładowanie obiektów mapy
-function loadObiekty(region, version, callback) {
-    const filename = `data/obiekty-${region}${version === 'ext' ? '-ext' : ''}.js`;
-
-    // Usuń poprzedni skrypt obiektów jeśli jest
+function loadObiekty(region_, version_, callback) {
+    const filename = `data/obiekty-${region_}${version_ === 'ext' ? '-ext' : ''}.js`;
     const oldScript = document.getElementById('obiektyScript');
     if (oldScript) oldScript.remove();
 
@@ -146,15 +141,14 @@ function loadObiekty(region, version, callback) {
     document.body.appendChild(script);
 }
 
-// Rozpoczęcie gry (po wyborze regionu i wersji)
 function startGame() {
     playerName = document.getElementById("playerName").value.trim();
     if (!playerName) {
         alert("Podaj imię gracza!");
         return;
     }
-    const region = document.getElementById('mapRegion').value;
-    const version = document.getElementById('mapVersion').value;
+    region = document.getElementById('mapRegion').value;
+    version = document.getElementById('mapVersion').value;
 
     loadObiekty(region, version, () => {
         setMapView(region);
@@ -173,6 +167,9 @@ function startGame() {
         showNames = document.getElementById("showNames").checked;
         started = true;
         time = 0;
+        trafienia = 0;
+        pomylki = 0;
+        liczbaObiektow = window.obiekty.length;
         document.getElementById("lives").textContent = lives;
         document.getElementById("msg").textContent = "";
         document.getElementById("restart").style.display = "none";
@@ -213,6 +210,7 @@ function markerClicked(idx) {
     if (idx === currentIdx) {
         pozostale = pozostale.filter(i => i !== idx);
         donePoints.unshift(idx);
+        trafienia++;
         document.getElementById("msg").textContent = "Dobrze!";
         allowClick = false;
         currentIdx = null;
@@ -222,6 +220,7 @@ function markerClicked(idx) {
         checkWin();
     } else {
         lives--;
+        pomylki++;
         time += 10;
         document.getElementById("lives").textContent = lives;
         document.getElementById("timeValue").textContent = time;
@@ -239,11 +238,17 @@ function markerClicked(idx) {
 function checkWin() {
     if (pozostale.length === 0) {
         stopTimer();
-        document.getElementById("msg").textContent = `Brawo, ${playerName}! Twój czas: ${time}s`;
+        const punkty = Math.round((trafienia * 1000) / (time + (pomylki * 10)));
+        document.getElementById("msg").innerHTML =
+            `Brawo, ${playerName}!<br>
+            Punkty: <b>${punkty}</b><br>
+            Trafienia: <b>${trafienia}</b> / ${liczbaObiektow}<br>
+            Pomyłki: <b>${pomylki}</b><br>
+            Czas: <b>${time}s</b>`;
         document.getElementById("restart").style.display = "";
         document.getElementById("endNow").disabled = true;
         started = false;
-        submitScore(playerName, time);
+        submitScore(playerName, punkty, time, trafienia, pomylki, liczbaObiektow, region, version);
         getBestScores();
     }
 }
@@ -251,38 +256,65 @@ function checkWin() {
 document.getElementById("endNow").onclick = function() {
     if (!started) return;
     stopTimer();
-    document.getElementById("msg").textContent = `Quiz zakończony wcześniej! Wynik: ${time}s, odgadnięto ${donePoints.length}/${window.obiekty.length}.`;
+    const punkty = Math.round((trafienia * 1000) / (time + (pomylki * 10)));
+    document.getElementById("msg").innerHTML =
+        `Quiz zakończony wcześniej!<br>
+        Punkty: <b>${punkty}</b><br>
+        Trafienia: <b>${trafienia}</b> / ${liczbaObiektow}<br>
+        Pomyłki: <b>${pomylki}</b><br>
+        Czas: <b>${time}s</b>`;
     document.getElementById("restart").style.display = "";
     document.getElementById("endNow").disabled = true;
     started = false;
-    submitScore(playerName, time);
+    submitScore(playerName, punkty, time, trafienia, pomylki, liczbaObiektow, region, version);
     getBestScores();
 };
 
-function submitScore(name, time) {
-    db.ref("scores").push({name, time: Number(time)});
+function submitScore(name, punkty, time, trafienia, pomylki, liczbaObiektow, region_, version_) {
+    // Zapis do Firebase pod regionem i wersją
+    db.ref("scores/" + region_ + "/" + version_).push({name, punkty, time, trafienia, pomylki, liczbaObiektow});
 }
 function getBestScores() {
-    db.ref("scores").orderByChild("time").limitToFirst(10).once("value", snap => {
+    region = document.getElementById('mapRegion').value || "europa";
+    version = document.getElementById('mapVersion').value || "basic";
+    db.ref("scores/" + region + "/" + version).orderByChild("punkty").limitToLast(10).once("value", snap => {
         const vals = [];
         snap.forEach(child => {
             vals.push(child.val());
         });
-        renderRanking(vals);
+        vals.sort((a,b)=>b.punkty-a.punkty);
+        renderRanking(vals, region, version);
     });
 }
-function renderRanking(scores) {
-    let html = `<table>
-        <tr><th>Miejsce</th><th>Imię</th><th>Czas (s)</th></tr>`;
+function renderRanking(scores, region_, version_) {
+    let wersjaLabel = version_ === "ext" ? "Rozszerzona" : "Podstawowa";
+    let html = `<h3>TOP 10 — ${region_.charAt(0).toUpperCase() + region_.slice(1)} (${wersjaLabel})</h3>
+        <table>
+        <tr>
+            <th>Miejsce</th>
+            <th>Imię</th>
+            <th>Punkty</th>
+            <th>Czas (s)</th>
+            <th>Trafienia</th>
+            <th>Pomyłki</th>
+            <th>Obiektów</th>
+        </tr>`;
     if (!scores || !scores.length) {
-        html += `<tr><td colspan="3">Brak wyników</td></tr></table>`;
+        html += `<tr><td colspan="7">Brak wyników</td></tr></table>`;
         document.getElementById("rankingTable").innerHTML = html;
         return;
     }
-    scores.sort((a,b)=>a.time-b.time);
     scores.forEach((s, i) => {
         let trClass = (i==0) ? "top1" : (i==1) ? "top2" : (i==2) ? "top3" : "";
-        html += `<tr class="${trClass}"><td>${i+1}</td><td>${s.name}</td><td>${s.time}</td></tr>`;
+        html += `<tr class="${trClass}">
+            <td>${i+1}</td>
+            <td>${s.name}</td>
+            <td>${s.punkty}</td>
+            <td>${s.time}</td>
+            <td>${s.trafienia}</td>
+            <td>${s.pomylki || 0}</td>
+            <td>${s.liczbaObiektow || ''}</td>
+        </tr>`;
     });
     html += `</table>`;
     document.getElementById("rankingTable").innerHTML = html;
@@ -292,21 +324,23 @@ function renderRanking(scores) {
 document.getElementById("startBtn").onclick = startGame;
 document.getElementById("restart").onclick = resetGame;
 
-// Zmiana checkboxa w trakcie gry – tylko zmiana tempa timera, bez restartu!
 document.getElementById("showNames").onchange = function() {
     showNames = this.checked;
     updateTimerSpeed();
     renderMarkers();
 };
 
-// Zmiana mapy/wersji resetuje grę
-document.getElementById("mapRegion").onchange = resetGame;
-document.getElementById("mapVersion").onchange = resetGame;
+document.getElementById("mapRegion").onchange = function() {
+    resetGame();
+    getBestScores();
+};
+document.getElementById("mapVersion").onchange = function() {
+    resetGame();
+    getBestScores();
+};
 
-// Ranking od razu po załadowaniu
 getBestScores();
 
-// Ustaw domyślny widok na start
 window.onload = function() {
     setMapView(document.getElementById('mapRegion').value);
 };
