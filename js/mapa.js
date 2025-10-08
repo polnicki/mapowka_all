@@ -16,6 +16,7 @@ const kolory = {
     "Pobrzeże": "#8048a4",
     "Pojezierze": "#1b99c0",
     "Kotlina" : "#330b0b",
+    "Ocean" : "#0931bb"
 
 };
 
