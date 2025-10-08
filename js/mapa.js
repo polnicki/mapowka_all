@@ -16,7 +16,10 @@ const kolory = {
     "Pobrzeże": "#8048a4",
     "Pojezierze": "#1b99c0",
     "Kotlina" : "#330b0b",
-    "Ocean" : "#0931bb"
+    "Ocean" : "#0931bb",
+    "Przylądek": "#82fa40",
+    "Pustynia": "#cfd708",
+    "Kanał" : "#176177"
 
 };
 
