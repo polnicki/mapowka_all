@@ -51,8 +51,10 @@ function setMapView(region_) {
     map.setView(v.center, v.zoom);
 }
 
+// ZMIANA: Użycie ikony SVG zamiast kolorowego punktu
 function icon(typ) {
     let size = (window.innerWidth < 700) ? 32 : 24;
+    // Użyj geoIconHTML z icons.js
     return L.divIcon({
         className: "custom-icon",
         iconSize: [size, size],
@@ -79,6 +81,7 @@ function renderTaskList() {
     list.innerHTML = "";
     pozostale.forEach(idx => {
         const typ = window.obiekty[idx][3];
+        // Użyj geoIconHTML do listy
         const li = document.createElement("li");
         li.innerHTML = `${geoIconHTML(typ)}${window.obiekty[idx][0]}`;
         li.onclick = () => selectName(idx);
@@ -113,7 +116,7 @@ function stopTimer() {
 }
 
 function updateTimerSpeed() {
-    timeIncrement = showNames ? 3 : 1;
+    timeIncrement = showNames ? 2 : 1;
 }
 
 function shuffle(array) {
@@ -257,10 +260,18 @@ function checkWin() {
     }
 }
 
+// ZMIANA: Punktacja za wcześniejsze zakończenie (kara jeśli nie wszystkie trafione)
 document.getElementById("endNow").onclick = function() {
     if (!started) return;
     stopTimer();
-    const punkty = Math.round((trafienia * 1000) / (time + (pomylki * 10)));
+    let punkty;
+    if (trafienia < liczbaObiektow) {
+        // Kara: mocno ograniczone punkty, proporcjonalnie do trafień (możesz ustawić punkty = 0 jeśli chcesz)
+        punkty = Math.round((trafienia * 250) / (time + (pomylki * 10)));
+    } else {
+        // Standardowa punktacja gdy wszystkie obiekty odgadnięte
+        punkty = Math.round((trafienia * 1000) / (time + (pomylki * 10)));
+    }
     document.getElementById("msg").innerHTML =
         `Quiz zakończony wcześniej!<br>
         Punkty: <b>${punkty}</b><br>
