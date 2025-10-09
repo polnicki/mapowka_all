@@ -1,5 +1,6 @@
 // Map typ obiektu na nazwę klasy CSS i plik ikony SVG
 const geoTypeIcon = {
+  "domyslna":   { cls: "color-domyslna",   file: "icons/domyslna.svg" },
   "Morze":      { cls: "color-morze",      file: "icons/morze.svg" },
   "Cieśnina":   { cls: "color-ciesnina",   file: "icons/ciesnina.svg" },
   "Półwysep":   { cls: "color-polwysep",   file: "icons/polwysep.svg" },
@@ -19,12 +20,13 @@ const geoTypeIcon = {
   "Ocean":      { cls: "color-ocean",      file: "icons/ocean.svg" },
   "Przylądek":  { cls: "color-przyladek",  file: "icons/przyladek.svg" },
   "Pustynia":   { cls: "color-pustynia",   file: "icons/pustynia.svg" },
-  "Kanał":      { cls: "color-kanal",      file: "icons/kanal.svg" }
+  "Kanał":      { cls: "color-kanal",      file: "icons/kanal.svg" },
+  "Szczyt":      { cls: "color-szczyt",      file: "icons/szczyt.svg" },
 };
 
 // Dynamiczny generator HTML <img> z odpowiednią klasą CSS
 function geoIconHTML(typ, size=24) {
-  const icon = geoTypeIcon[typ] || geoTypeIcon["Morze"];
+  const icon = geoTypeIcon[typ] || geoTypeIcon["domyslna"];
   return `<img class="icon-geopoint ${icon.cls}" src="${icon.file}" style="width:${size}px;height:${size}px;" alt="${typ}">`;
 }
 

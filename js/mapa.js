@@ -19,7 +19,8 @@ const kolory = {
     "Ocean" : "#001F3F",
     "Przylądek": "#FFD700",
     "Pustynia": "#F7B32B",
-    "Kanał" : "#8B008B"
+    "Kanał" : "#8B008B",
+    "Szczyt" :"#3a143a"
 };
 
 let currentIdx, pozostale, markers, selectedName, allowClick, donePoints;

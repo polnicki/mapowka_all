@@ -7,7 +7,7 @@ window.obiekty = [
     ["Morze Karskie", 76, 80, "Morze"],
     ["Morze Łaptiewów", 76, 125, "Morze"],
     ["Morze Czukockie", 70, 175, "Morze"],
-    ["Morze Beringa", 60, 178, "Morze"],
+    ["Morze Beringa", 60, 175, "Morze"],
     ["Morze Ochockie", 52, 150, "Morze"],
     ["Morze Japońskie", 38, 135, "Morze"],
     ["Morze Żółte", 36, 124, "Morze"],
@@ -29,7 +29,7 @@ window.obiekty = [
     ["Zatoka Perska", 27, 51, "Zatoka"],
     ["Zatoka Adeńska", 13, 48, "Zatoka"],
     // CIEŚNINY
-    ["Cieśnina Beringa", 66, -170, "Cieśnina"],
+    ["Cieśnina Beringa", 65.43515566760388, -168.31632468627222, "Cieśnina"], //65.43515566760388, -168.31632468627222
     ["Cieśnina Tatarska", 52, 140, "Cieśnina"],
     ["Cieśnina Koreańska", 36, 130, "Cieśnina"],
     ["Cieśnina Tajwańska", 25, 120, "Cieśnina"],
@@ -66,7 +66,7 @@ window.obiekty = [
     // PÓŁWYSPY
     ["Półwysep Jamał", 70, 70, "Półwysep"],
     ["Półwysep Tajmyr", 75, 100, "Półwysep"],
-    ["Półwysep Czukocki", 66, -170, "Półwysep"],
+    ["Półwysep Czukocki", 64.53918724421314, -174.26060356995595, "Półwysep"],  //65.64884250696291, -174.26060356995595
     ["Półwysep Kamczatka", 57, 160, "Półwysep"],
     ["Półwysep Koreański", 38, 127, "Półwysep"],
     ["Półwysep Indochiński", 16, 105, "Półwysep"],
