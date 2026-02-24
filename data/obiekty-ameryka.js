@@ -1,6 +1,6 @@
 window.obiekty = [
     // OCEANY
-    ["Ocean Arktyczny", 85, -50, "Ocean"],
+    ["Ocean Arktyczny", 83, -50, "Ocean"],
     ["Ocean Atlantycki", 35, -30, "Ocean"],
     ["Ocean Spokojny", 0, -120, "Ocean"],
     ["Ocean Południowy", -60, -30, "Ocean"],
@@ -50,7 +50,7 @@ window.obiekty = [
     ["Przylądek Froward", -53.5, -71.2, "Przylądek"],
     ["Przylądek Horn", -56, -67, "Przylądek"],
     ["Przylądek Parinas", -4.7, -81.3, "Przylądek"],
-    ["Przylądek Branco", 16.6, -24.8, "Przylądek"],
+    ["Przylądek Branco", -7.1486, -34.7967, "Przylądek"],
     ["Przylądek Barrow", 71.4, -156.5, "Przylądek"],
     // PÓŁWYSPY
     ["Półwysep Alaska", 55, -162, "Półwysep"],
@@ -63,7 +63,7 @@ window.obiekty = [
     ["Rzeka Jukon", 64, -155, "Rzeka"],
     ["Rzeka Mackenzie", 67, -134, "Rzeka"],
     ["Rzeka Kolumbia", 46, -122, "Rzeka"],
-    ["Rzeka Kolorado", 36, -112, "Rzeka"],
+    ["Rzeka Kolorado", 36.1, -112.0833, "Rzeka"],
     ["Rzeka Św. Wawrzyńca", 45, -74, "Rzeka"],
     ["Rzeka Missisipi", 33, -91, "Rzeka"],
     ["Rzeka Missouri", 45, -94, "Rzeka"],
@@ -88,7 +88,7 @@ window.obiekty = [
     ["Jezioro Maracaibo", 9.8, -71.6, "Jezioro"],
     ["Jezioro Titicaca", -15.8, -69.4, "Jezioro"],
     // NIZINY I KOTLINY
-    ["Nizina Hudsońska", 58, -85, "Nizina"],
+    ["Nizina Hudsońska", 54.75, -83, "Nizina"],
     ["Nizina Zatokowa", 30, -90, "Nizina"],
     ["Nizina Atlantycka", 37, -75, "Nizina"],
     ["Niziny Wewnętrzne", 50, -100, "Nizina"],
@@ -97,7 +97,7 @@ window.obiekty = [
     ["Nizina La Platy", -35, -58, "Nizina"],
     ["Wielka Kotlina", 39, -116, "Kotlina"],
     ["Dolina Śmierci", 36.5, -117, "Kotlina"],
-    ["Wielki Kanion Kolorado", 36, -112, "Kotlina"],
+    ["Wielki Kanion Kolorado", 36.3099, -112.1394, "Kotlina"],
     ["Wielkie Równiny", 45, -100, "Nizina"],
     // WYŻYNY
     ["Wyżyna Kolorado", 36, -110, "Wyżyna"],
