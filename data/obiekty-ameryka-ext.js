@@ -1,6 +1,6 @@
 window.obiekty = [
     // OCEANY
-    ["Ocean Arktyczny", 85, -50, "Ocean"],
+    ["Ocean Arktyczny", 83, -50, "Ocean"],
     ["Ocean Atlantycki", 35, -30, "Ocean"],
     ["Ocean Spokojny", 0, -120, "Ocean"],
     ["Ocean Południowy", -60, -30, "Ocean"],
@@ -9,23 +9,19 @@ window.obiekty = [
     ["Morze Beringa", 60, -175, "Morze"],
     ["Morze Baffina", 75, -68, "Morze"],
     ["Morze Labradorskie", 60, -50, "Morze"],
-    ["Morze Sargassowe", 32, -52, "Morze"],
     ["Morze Karaibskie", 15, -75, "Morze"],
+    ["Morze Sargassowe", 32, -52, "Morze"],
     // ZATOKI
     ["Zatoka Alaska", 58, -144, "Zatoka"],
     ["Zatoka Hudsona", 60, -80, "Zatoka"],
-    ["Zatoka Bothia", 62, -92, "Zatoka"],
     ["Zatoka Św. Wawrzyńca", 48, -62, "Zatoka"],
     ["Zatoka Meksykańska", 24, -90, "Zatoka"],
     ["Zatoka Kalifornijska", 26, -111, "Zatoka"],
-    ["Zatoka Campeche", 19, -92, "Zatoka"],
     ["Zatoka Panamska", 7.5, -79.5, "Zatoka"],
     ["Zatoka Honduraska", 16, -86, "Zatoka"],
     ["Zatoka La Plata", -35, -56, "Zatoka"],
     // CIEŚNINY I KANAŁY
     ["Cieśnina Beringa", 66, -170, "Cieśnina"],
-    ["Cieśnina Hudsona", 61, -78, "Cieśnina"],
-    ["Cieśnina Florydzka", 24, -81, "Cieśnina"],
     ["Cieśnina Magellana", -53, -71, "Cieśnina"],
     ["Kanał Panamski", 9, -79.5, "Kanał"],
     // WYSPY I ARCHIPELAGI
@@ -54,11 +50,10 @@ window.obiekty = [
     ["Przylądek Froward", -53.5, -71.2, "Przylądek"],
     ["Przylądek Horn", -56, -67, "Przylądek"],
     ["Przylądek Parinas", -4.7, -81.3, "Przylądek"],
-    ["Przylądek Branco", 16.6, -24.8, "Przylądek"],
+    ["Przylądek Branco", -7.1486, -34.7967, "Przylądek"],
     ["Przylądek Barrow", 71.4, -156.5, "Przylądek"],
     // PÓŁWYSPY
     ["Półwysep Alaska", 55, -162, "Półwysep"],
-    ["Półwysep Bothia", 59, -94, "Półwysep"],
     ["Półwysep Labrador", 56, -62, "Półwysep"],
     ["Półwysep Nowa Szkocja", 45, -63, "Półwysep"],
     ["Półwysep Floryda", 26, -81, "Półwysep"],
@@ -67,17 +62,14 @@ window.obiekty = [
     // RZEKI
     ["Rzeka Jukon", 64, -155, "Rzeka"],
     ["Rzeka Mackenzie", 67, -134, "Rzeka"],
-    ["Rzeka Nelson", 57, -94, "Rzeka"],
     ["Rzeka Kolumbia", 46, -122, "Rzeka"],
-    ["Rzeka Kolorado", 36, -112, "Rzeka"],
+    ["Rzeka Kolorado", 36.1, -112.0833, "Rzeka"],
     ["Rzeka Św. Wawrzyńca", 45, -74, "Rzeka"],
     ["Rzeka Missisipi", 33, -91, "Rzeka"],
     ["Rzeka Missouri", 45, -94, "Rzeka"],
-    ["Rzeka Arkansas", 34.7, -92.3, "Rzeka"],
     ["Rzeka Rio Grande", 27, -100, "Rzeka"],
     ["Rzeka Orinoko", 7, -63, "Rzeka"],
     ["Rzeka Amazonka", -3, -60, "Rzeka"],
-    ["Rzeka Madeira", -8, -63, "Rzeka"],
     ["Rzeka Sao Francisco", -10, -44, "Rzeka"],
     ["Rzeka Parana", -27, -59, "Rzeka"],
     ["Rzeka Paragwaj", -20, -58, "Rzeka"],
@@ -96,7 +88,7 @@ window.obiekty = [
     ["Jezioro Maracaibo", 9.8, -71.6, "Jezioro"],
     ["Jezioro Titicaca", -15.8, -69.4, "Jezioro"],
     // NIZINY I KOTLINY
-    ["Nizina Hudsońska", 58, -85, "Nizina"],
+    ["Nizina Hudsońska", 54.75, -83, "Nizina"],
     ["Nizina Zatokowa", 30, -90, "Nizina"],
     ["Nizina Atlantycka", 37, -75, "Nizina"],
     ["Niziny Wewnętrzne", 50, -100, "Nizina"],
@@ -105,7 +97,7 @@ window.obiekty = [
     ["Nizina La Platy", -35, -58, "Nizina"],
     ["Wielka Kotlina", 39, -116, "Kotlina"],
     ["Dolina Śmierci", 36.5, -117, "Kotlina"],
-    ["Wielki Kanion Kolorado", 36, -112, "Kotlina"],
+    ["Wielki Kanion Kolorado", 36.3099, -112.1394, "Kotlina"],
     ["Wielkie Równiny", 45, -100, "Nizina"],
     // WYŻYNY
     ["Wyżyna Kolorado", 36, -110, "Wyżyna"],
@@ -115,11 +107,9 @@ window.obiekty = [
     ["Wyżyna Patagońska", -45, -67, "Wyżyna"],
     // GÓRY
     ["Kordyliery", 60, -115, "Góry"],
-    ["Góry Brooksa", 68, -150, "Góry"],
-    ["Góry Alaska", 63, -151, "Góry"],
+    ["Góry Alaska", 62.58, -153.08, "Góry"],
     ["Góry Mackenzie", 63, -130, "Góry"],
     ["Góry Nadbrzeżne", 53, -128, "Góry"],
-    ["Góry Kaskadowe", 45, -121, "Góry"],
     ["Góry Skaliste", 45, -111, "Góry"],
     ["Sierra Nevada", 38, -120, "Góry"],
     ["Sierra Madre", 20, -101, "Góry"],
@@ -130,9 +120,8 @@ window.obiekty = [
     ["Kordyliera Wschodnia", -10, -65, "Góry"],
     ["Kordyliera Zachodnia", -20, -70, "Góry"],
     ["Kordyliera Nadbrzeżna", -37, -73, "Góry"],
-    ["Domeyki", -26.5, -69.5, "Góry"],
     // SZCZYTY
-    ["Denali (McKinley)", 63.07, -151.01, "Szczyt"],
+    ["Denali (McKinley)", 63.07, -151.0074, "Szczyt"],
     ["Aconcagua", -32.65, -70.01, "Szczyt"],
     // PUSTYNIA
     ["Pustynia Atacama", -24, -69, "Pustynia"]
