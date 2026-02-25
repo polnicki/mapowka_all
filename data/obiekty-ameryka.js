@@ -107,7 +107,7 @@ window.obiekty = [
     ["Wyżyna Patagońska", -45, -67, "Wyżyna"],
     // GÓRY
     ["Kordyliery", 60, -115, "Góry"],
-    ["Góry Alaska", 63, -151, "Góry"],
+    ["Góry Alaska", 62.58, -153.08, "Góry"],
     ["Góry Mackenzie", 63, -130, "Góry"],
     ["Góry Nadbrzeżne", 53, -128, "Góry"],
     ["Góry Skaliste", 45, -111, "Góry"],
@@ -121,7 +121,7 @@ window.obiekty = [
     ["Kordyliera Zachodnia", -20, -70, "Góry"],
     ["Kordyliera Nadbrzeżna", -37, -73, "Góry"],
     // SZCZYTY
-    ["Denali (McKinley)", 63.07, -151.01, "Szczyt"],
+    ["Denali (McKinley)", 63.07, -151.0074, "Szczyt"],
     ["Aconcagua", -32.65, -70.01, "Szczyt"],
     // PUSTYNIA
     ["Pustynia Atacama", -24, -69, "Pustynia"]
