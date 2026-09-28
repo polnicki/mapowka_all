@@ -20,7 +20,8 @@ const kolory = {
     "Przylądek": "#FFD700",
     "Pustynia": "#F7B32B",
     "Kanał" : "#8B008B",
-    "Szczyt" :"#3a143a"
+    "Szczyt" :"#3a143a",
+    "Kontynent": "#2ECC40"
 };
 
 let currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
@@ -46,7 +47,8 @@ function setMapView(region_) {
         ameryka: {center: [15, -75], zoom: 3},
         australia: {center: [-25, 134], zoom: 4},
         afryka: {center: [2, 20], zoom: 4},
-        polska: {center: [52, 19], zoom: 6}
+        polska: {center: [52, 19], zoom: 6},
+        swiat: {center: [20, 10], zoom: 2}
     };
     const v = views[region_] || views.europa;
     map.setView(v.center, v.zoom);
@@ -323,9 +325,20 @@ function getBestScores() {
         renderRanking(vals, region, version);
     });
 }
+const regionNames = {
+    europa: "Europa",
+    azja: "Azja",
+    ameryka: "Ameryka",
+    australia: "Australia",
+    afryka: "Afryka",
+    polska: "Polska",
+    swiat: "Świat (kontynenty)"
+};
+
 function renderRanking(scores, region_, version_) {
     let wersjaLabel = version_ === "ext" ? "Rozszerzona" : "Podstawowa";
-    let html = `<h3>TOP 10 — ${region_.charAt(0).toUpperCase() + region_.slice(1)} (${wersjaLabel})</h3>
+    let regionLabel = regionNames[region_] || (region_.charAt(0).toUpperCase() + region_.slice(1));
+    let html = `<h3>TOP 10 — ${regionLabel} (${wersjaLabel})</h3>
         <table>
         <tr>
             <th>Miejsce</th>
