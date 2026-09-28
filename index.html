@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/animations.css">
     <!-- Leaflet CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
@@ -14,7 +15,7 @@
 <div id="main">
     <div id="map"></div>
     <div id="sidebar">
-        <div id="mapSelect" style="margin-bottom:20px;">
+        <div id="mapSelect" style="margin-bottom:12px;">
             <label for="mapRegion">Region:</label>
             <select id="mapRegion">
                 <option value="europa">Europa</option>
@@ -29,6 +30,18 @@
             <select id="mapVersion">
                 <option value="basic">Podstawowa</option>
                 <option value="ext">Rozszerzona</option>
+            </select>
+        </div>
+        <div id="animSelectBox" style="margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; font-size:0.95em;">
+            <label for="animTypeSelect" style="font-size:0.92em; font-weight:600; color:#0074D9;">Efekt trafienia:</label>
+            <select id="animTypeSelect" style="border-radius:8px; border:1px solid #c2e9fb; padding:4px 8px; font-size:0.9em; background:#f9faff; color:#0074D9; font-weight:600; cursor:pointer;">
+                <option value="random">🎲 Losowo (wszystkie)</option>
+                <option value="shatter">💥 Rozpad na kawałki</option>
+                <option value="pop">🎈 Komiczny balonik</option>
+                <option value="vortex">🌀 Zwariowany wir</option>
+                <option value="rocket">🚀 Wystrzał w kosmos</option>
+                <option value="splat">🥞 Skok i plask</option>
+                <option value="ghost">👻 Duszek</option>
             </select>
         </div>
         <div id="nameEntry">

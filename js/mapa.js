@@ -28,6 +28,8 @@ let currentIdx, pozostale, markers, selectedName, allowClick, donePoints;
 let timerInterval, time, started, playerName;
 let showNames = false;
 let timeIncrement = 1;
+let lastHitIdx = null;
+let activeFxMarkers = [];
 
 let trafienia = 0;
 let pomylki = 0;
@@ -92,11 +94,11 @@ function renderTaskList() {
         li.className = (idx === currentIdx) ? "selected" : "";
         list.appendChild(li);
     });
-    donePoints.forEach(idx => {
+    donePoints.forEach((idx, i) => {
         const typ = window.obiekty[idx][3];
         const li = document.createElement("li");
         li.innerHTML = `${geoIconHTML(typ)}${window.obiekty[idx][0]}`;
-        li.className = "done";
+        li.className = (i === 0 && lastHitIdx === idx) ? "done just-done" : "done";
         list.appendChild(li);
     });
     document.getElementById("nextBtn").style.display = (started && currentIdx !== null && pozostale.length > 0) ? "" : "none";
@@ -169,6 +171,8 @@ function startGame() {
         document.getElementById("showNamesLabel").style.display = "";
         document.getElementById("endNow").style.display = "";
         document.getElementById("endNow").disabled = false;
+        clearAllFx();
+        lastHitIdx = null;
         pozostale = shuffle(window.obiekty.map((p, idx) => idx));
         donePoints = [];
         currentIdx = null;
@@ -216,16 +220,198 @@ function selectName(idx) {
     renderTaskList();
 }
 
+function clearAllFx() {
+    if (activeFxMarkers && activeFxMarkers.length) {
+        activeFxMarkers.forEach(m => {
+            try {
+                if (map && map.hasLayer(m)) map.removeLayer(m);
+            } catch (e) {}
+        });
+        activeFxMarkers = [];
+    }
+}
+
+function getRandomTag(type) {
+    const commonTags = ["TRAFIONY! 🎯", "ŚWIETNIE! ✨", "SUPER! 👏", "BRAWO! 🌟", "+1 ⭐", "EKSTRA! 🚀"];
+    const tagsByType = {
+        shatter: ["ROZBITO! 💥", "BAM! 🔨", "TRAFIONY! 🎯", "KRUSZ! ⚡"],
+        pop: ["POOF! 💥", "POP! 🎈", "TRAFIONY! 🎯", "BUM! 💥"],
+        vortex: ["ZUUUP! 🌀", "WIR! 🌪️", "SZOK! 😵", "SUPER! ✨"],
+        rocket: ["ODLOT! 🚀", "WOOOSH! 💨", "W KOSMOS! 🌌", "BRAWO! 🌟"],
+        splat: ["PLASK! 🥞", "PAC! 🎯", "PLOP! 💧", "TRAFIONY! 👏"],
+        ghost: ["PA PA! 👻", "PAPA! 👋", "CUDOWNIE! 😇", "TRAFIONY! ✨"]
+    };
+    const pool = (tagsByType[type] || []).concat(commonTags);
+    return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function generateFxHtml(animType, typ, iconData, color, size, name) {
+    const tagText = getRandomTag(animType);
+    const tagHtml = `<div class="fx-tag">${tagText}</div>`;
+    const ringHtml = `<div class="fx-ring" style="--col:${color};"></div>`;
+
+    const particles = [
+        { tx: '-34px', ty: '-32px', char: '✦' },
+        { tx: '34px',  ty: '-32px', char: '★' },
+        { tx: '-38px', ty: '20px',  char: '●' },
+        { tx: '36px',  ty: '22px',  char: '✦' },
+        { tx: '-14px', ty: '-42px', char: '★' },
+        { tx: '16px',  ty: '-40px', char: '●' },
+        { tx: '-24px', ty: '34px',  char: '✦' },
+        { tx: '24px',  ty: '36px',  char: '★' }
+    ];
+    const particlesHtml = particles.map((p, i) =>
+        `<div class="fx-particle" style="--tx:${p.tx}; --ty:${p.ty}; --col:${color}; --rot:${(i*45)+90}deg;">${p.char}</div>`
+    ).join('');
+
+    const iconImg = `<img class="icon-geopoint ${iconData.cls}" src="${iconData.file}" style="width:${size}px;height:${size}px;" alt="${typ}">`;
+
+    if (animType === 'shatter') {
+        const shardsHtml = [1, 2, 3, 4, 5, 6].map(num =>
+            `<div class="fx-shard shard-${num}">${iconImg}</div>`
+        ).join('');
+        return `
+            <div class="hit-fx-box fx-shatter">
+                ${shardsHtml}
+                ${ringHtml}
+                ${particlesHtml}
+                ${tagHtml}
+            </div>
+        `;
+    }
+
+    if (animType === 'pop') {
+        return `
+            <div class="hit-fx-box fx-pop">
+                <div class="fx-icon-actor">${iconImg}</div>
+                <div class="fx-comic-burst">💥</div>
+                ${ringHtml}
+                ${particlesHtml}
+                ${tagHtml}
+            </div>
+        `;
+    }
+
+    if (animType === 'vortex') {
+        return `
+            <div class="hit-fx-box fx-vortex">
+                <div class="fx-icon-actor">${iconImg}</div>
+                <div class="fx-dizzy">💫</div>
+                ${ringHtml}
+                ${particlesHtml}
+                ${tagHtml}
+            </div>
+        `;
+    }
+
+    if (animType === 'rocket') {
+        return `
+            <div class="hit-fx-box fx-rocket">
+                <div class="fx-icon-actor">${iconImg}</div>
+                <div class="fx-launch-smoke"><span>💨</span><span>🔥</span><span>💨</span></div>
+                ${particlesHtml}
+                ${tagHtml}
+            </div>
+        `;
+    }
+
+    if (animType === 'splat') {
+        const dropsHtml = `
+            <div class="fx-splat-drop" style="--tx:-26px; --ty:12px;">💧</div>
+            <div class="fx-splat-drop" style="--tx:26px; --ty:12px;">💧</div>
+            <div class="fx-splat-drop" style="--tx:-14px; --ty:20px; color:${color};">●</div>
+            <div class="fx-splat-drop" style="--tx:14px; --ty:20px; color:${color};">●</div>
+        `;
+        return `
+            <div class="hit-fx-box fx-splat">
+                <div class="fx-icon-actor">${iconImg}</div>
+                ${dropsHtml}
+                ${tagHtml}
+            </div>
+        `;
+    }
+
+    if (animType === 'ghost') {
+        return `
+            <div class="hit-fx-box fx-ghost">
+                <div class="fx-icon-actor">${iconImg}</div>
+                <div class="fx-halo">😇</div>
+                ${particlesHtml}
+                ${tagHtml}
+            </div>
+        `;
+    }
+
+    return `
+        <div class="hit-fx-box fx-shatter">
+            <div class="fx-icon-actor">${iconImg}</div>
+            ${ringHtml}
+            ${particlesHtml}
+            ${tagHtml}
+        </div>
+    `;
+}
+
+function playHitAnimation(lat, lon, typ, name) {
+    const size = (window.innerWidth < 700) ? 32 : 24;
+    const iconData = (typeof geoTypeIcon !== 'undefined' && geoTypeIcon[typ]) ? geoTypeIcon[typ] : { cls: "color-domyslna", file: "icons/domyslna.svg" };
+    const color = (typeof kolory !== 'undefined' && kolory[typ]) ? kolory[typ] : "#0074D9";
+
+    const animSelect = document.getElementById("animTypeSelect");
+    let chosen = animSelect ? animSelect.value : "random";
+
+    if (!chosen || chosen === "random") {
+        const pool = ['shatter', 'shatter', 'pop', 'vortex', 'rocket', 'splat', 'ghost'];
+        chosen = pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    const fxHtml = generateFxHtml(chosen, typ, iconData, color, size, name);
+
+    const fxMarker = L.marker([lat, lon], {
+        icon: L.divIcon({
+            className: "hit-fx-marker",
+            iconSize: [size, size],
+            html: fxHtml
+        }),
+        interactive: false,
+        zIndexOffset: 2500
+    });
+
+    fxMarker.addTo(map);
+    activeFxMarkers.push(fxMarker);
+
+    setTimeout(() => {
+        try {
+            if (map && map.hasLayer(fxMarker)) {
+                map.removeLayer(fxMarker);
+            }
+        } catch (e) {}
+        activeFxMarkers = activeFxMarkers.filter(m => m !== fxMarker);
+    }, 1000);
+}
+
 function markerClicked(idx) {
     if (!allowClick || currentIdx === null || !started) {
         document.getElementById("msg").textContent = "Najpierw wybierz nazwę z listy po prawej!";
         return;
     }
     if (idx === currentIdx) {
+        const obj = window.obiekty[idx];
+        if (obj) {
+            playHitAnimation(obj[1], obj[2], obj[3], obj[0]);
+        }
+        lastHitIdx = idx;
         pozostale = pozostale.filter(i => i !== idx);
         donePoints.unshift(idx);
         trafienia++;
-        document.getElementById("msg").textContent = "Dobrze!";
+
+        const msgEl = document.getElementById("msg");
+        msgEl.textContent = "Dobrze!";
+        msgEl.className = "msg-hit";
+        setTimeout(() => {
+            if (msgEl.className === "msg-hit") msgEl.className = "";
+        }, 450);
+
         allowClick = false;
         currentIdx = null;
         selectedName = null;
@@ -290,6 +476,8 @@ document.getElementById("endNow").onclick = function() {
 };
 
 function resetGame() {
+    clearAllFx();
+    lastHitIdx = null;
     stopTimer();
     document.getElementById("nameEntry").style.display = "";
     document.getElementById("timer").style.display = "none";

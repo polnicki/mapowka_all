@@ -1,0 +1,412 @@
+/* =========================================================
+   ANIMACJE TRAFIENIA (ROZPAD I ŚMIESZNE ZNIKANIE IKONKI)
+   ========================================================= */
+
+/* Kontener markera w Leaflet */
+.hit-fx-marker {
+    pointer-events: none !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+/* Wewnętrzne pudełko animacji */
+.hit-fx-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hit-fx-box .icon-geopoint {
+    margin: 0 !important;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Pływająca plakietka / komiksowy dymek z pochwałą */
+.fx-tag {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: #fff;
+    background: linear-gradient(135deg, #FF4136 0%, #FF851B 100%);
+    padding: 3px 9px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    animation: fxTagAnim 0.85s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    pointer-events: none;
+    z-index: 200;
+}
+
+@keyframes fxTagAnim {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 4px) scale(0.4);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -16px) scale(1.18);
+    }
+    45% {
+        transform: translate(-50%, -22px) scale(1);
+    }
+    75% {
+        opacity: 1;
+        transform: translate(-50%, -34px) scale(0.95);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -46px) scale(0.7);
+    }
+}
+
+/* Rozszerzający się pierścień fali uderzeniowej */
+.fx-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--col, #FFD700);
+    box-sizing: border-box;
+    opacity: 0.9;
+    animation: fxRingAnim 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    pointer-events: none;
+}
+
+@keyframes fxRingAnim {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(3.6);
+        opacity: 0;
+    }
+}
+
+/* Promieniste cząsteczki / iskry / gwiazdki */
+.fx-particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--col, #FFDC00);
+    text-shadow: 0 0 6px var(--col, #FFDC00);
+    pointer-events: none;
+    user-select: none;
+    animation: fxParticleFly 0.75s cubic-bezier(0.15, 0.85, 0.35, 1.2) forwards;
+}
+
+@keyframes fxParticleFly {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(0, 0) scale(1) rotate(0deg);
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translate(var(--tx, 0px), var(--ty, 0px)) scale(0) rotate(var(--rot, 180deg));
+    }
+}
+
+/* =========================================================
+   1. ROZPAD NA ODŁAMKI (SHATTER)
+   ========================================================= */
+.hit-fx-box.fx-shatter .fx-shard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform-origin: center center;
+}
+
+.hit-fx-box.fx-shatter .fx-shard img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* 6 odłamków ikony o geometrycznych kształtach rozlatujących się w różne strony */
+.hit-fx-box.fx-shatter .shard-1 {
+    clip-path: polygon(0 0, 58% 0, 32% 48%, 0 38%);
+    animation: shardFly1 0.7s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+}
+@keyframes shardFly1 {
+    0% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+    14% { transform: translate(0, 0) scale(1.15) rotate(-5deg); }
+    100% { transform: translate(-36px, -32px) scale(0) rotate(-160deg); opacity: 0; }
+}
+
+.hit-fx-box.fx-shatter .shard-2 {
+    clip-path: polygon(58% 0, 100% 0, 100% 48%, 46% 36%);
+    animation: shardFly2 0.7s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+}
+@keyframes shardFly2 {
+    0% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+    14% { transform: translate(0, 0) scale(1.15) rotate(5deg); }
+    100% { transform: translate(34px, -36px) scale(0) rotate(170deg); opacity: 0; }
+}
+
+.hit-fx-box.fx-shatter .shard-3 {
+    clip-path: polygon(32% 48%, 46% 36%, 68% 52%, 48% 74%);
+    animation: shardFly3 0.7s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+}
+@keyframes shardFly3 {
+    0% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+    14% { transform: translate(0, 0) scale(1.15); }
+    100% { transform: translate(4px, -26px) scale(0) rotate(220deg); opacity: 0; }
+}
+
+.hit-fx-box.fx-shatter .shard-4 {
+    clip-path: polygon(100% 48%, 100% 100%, 62% 100%, 68% 52%);
+    animation: shardFly4 0.7s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+}
+@keyframes shardFly4 {
+    0% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+    14% { transform: translate(0, 0) scale(1.15) rotate(3deg); }
+    100% { transform: translate(38px, 28px) scale(0) rotate(190deg); opacity: 0; }
+}
+
+.hit-fx-box.fx-shatter .shard-5 {
+    clip-path: polygon(24% 100%, 62% 100%, 48% 74%);
+    animation: shardFly5 0.7s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+}
+@keyframes shardFly5 {
+    0% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+    14% { transform: translate(0, 0) scale(1.15); }
+    100% { transform: translate(0px, 38px) scale(0) rotate(100deg); opacity: 0; }
+}
+
+.hit-fx-box.fx-shatter .shard-6 {
+    clip-path: polygon(0 38%, 32% 48%, 24% 100%, 0 100%);
+    animation: shardFly6 0.7s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+}
+@keyframes shardFly6 {
+    0% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+    14% { transform: translate(0, 0) scale(1.15) rotate(-3deg); }
+    100% { transform: translate(-36px, 26px) scale(0) rotate(-180deg); opacity: 0; }
+}
+
+/* =========================================================
+   2. KOMICZNY BALONIK I POOF (POP)
+   ========================================================= */
+.hit-fx-box.fx-pop .fx-icon-actor {
+    animation: balloonInflate 0.62s ease-in-out forwards;
+    transform-origin: center center;
+}
+
+@keyframes balloonInflate {
+    0% { transform: scale(1); }
+    18% { transform: scale(1.3, 0.8) rotate(-5deg); }
+    36% { transform: scale(0.85, 1.35) rotate(5deg); }
+    52% { transform: scale(1.6) rotate(-3deg); filter: brightness(1.3); }
+    60% { transform: scale(1.9); opacity: 1; }
+    62% { transform: scale(2.4); opacity: 0; }
+    100% { transform: scale(2.4); opacity: 0; }
+}
+
+.hit-fx-box.fx-pop .fx-comic-burst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 32px;
+    line-height: 1;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: comicBurstPop 0.45s 0.36s ease-out forwards;
+}
+
+@keyframes comicBurstPop {
+    0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 0; }
+    20% { transform: translate(-50%, -50%) scale(1.5) rotate(15deg); opacity: 1; }
+    60% { transform: translate(-50%, -50%) scale(1.7) rotate(30deg); opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(2.1) rotate(45deg); opacity: 0; }
+}
+
+/* =========================================================
+   3. ZWARIOWANY WIR / TORNADO (VORTEX)
+   ========================================================= */
+.hit-fx-box.fx-vortex .fx-icon-actor {
+    animation: vortexTwirl 0.75s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform-origin: center center;
+}
+
+@keyframes vortexTwirl {
+    0% { transform: scale(1) rotate(0deg); }
+    20% { transform: scale(1.25) rotate(90deg); }
+    45% { transform: scale(0.9) rotate(360deg); }
+    70% { transform: scale(0.45) rotate(720deg); filter: blur(1px); }
+    90% { transform: scale(0.1) rotate(1080deg); opacity: 0.8; filter: blur(2px); }
+    100% { transform: scale(0) rotate(1440deg); opacity: 0; filter: blur(4px); }
+}
+
+.hit-fx-box.fx-vortex .fx-dizzy {
+    position: absolute;
+    top: -10px;
+    font-size: 16px;
+    animation: dizzySpin 0.75s ease-out forwards;
+}
+
+@keyframes dizzySpin {
+    0% { transform: translateY(0) scale(0) rotate(0deg); opacity: 0; }
+    30% { transform: translateY(-12px) scale(1.25) rotate(180deg); opacity: 1; }
+    70% { transform: translateY(-18px) scale(1) rotate(360deg); opacity: 1; }
+    100% { transform: translateY(-26px) scale(0) rotate(540deg); opacity: 0; }
+}
+
+/* =========================================================
+   4. WYSTRZAŁ W KOSMOS (ROCKET)
+   ========================================================= */
+.hit-fx-box.fx-rocket .fx-icon-actor {
+    animation: rocketLaunch 0.72s cubic-bezier(0.2, 0.7, 0.1, 1) forwards;
+    transform-origin: center bottom;
+}
+
+@keyframes rocketLaunch {
+    0% { transform: translateY(0) scale(1, 1); }
+    18% { transform: translateY(3px) scale(1.35, 0.65); }
+    32% { transform: translateY(5px) scale(1.45, 0.55); filter: drop-shadow(0 4px 6px #FF851B); }
+    45% { transform: translateY(-25px) scale(0.8, 1.35); }
+    75% { transform: translateY(-120px) scale(0.5, 1.4) rotate(8deg); opacity: 0.9; }
+    100% { transform: translateY(-220px) scale(0.2, 1.2) rotate(16deg); opacity: 0; }
+}
+
+.hit-fx-box.fx-rocket .fx-launch-smoke {
+    position: absolute;
+    bottom: -6px;
+    display: flex;
+    gap: 4px;
+    font-size: 15px;
+    animation: smokePuff 0.6s 0.22s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes smokePuff {
+    0% { transform: scale(0.4); opacity: 0; }
+    30% { transform: scale(1.35); opacity: 1; }
+    70% { transform: scale(1.55) translateY(4px); opacity: 0.7; }
+    100% { transform: scale(1.85) translateY(8px); opacity: 0; }
+}
+
+/* =========================================================
+   5. SKOK I PLASK (SPLAT)
+   ========================================================= */
+.hit-fx-box.fx-splat .fx-icon-actor {
+    animation: jumpSplat 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    transform-origin: center bottom;
+}
+
+@keyframes jumpSplat {
+    0% { transform: translateY(0) scale(1, 1); }
+    15% { transform: translateY(3px) scale(1.3, 0.7); }
+    38% { transform: translateY(-42px) scale(0.8, 1.3) rotate(180deg); }
+    62% { transform: translateY(0) scale(1.8, 0.25) rotate(360deg); }
+    80% { transform: translateY(2px) scale(2.2, 0.12) rotate(360deg); opacity: 0.7; }
+    100% { transform: translateY(3px) scale(2.6, 0) rotate(360deg); opacity: 0; }
+}
+
+.hit-fx-box.fx-splat .fx-splat-drop {
+    position: absolute;
+    font-size: 14px;
+    animation: splatDrop 0.5s 0.45s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes splatDrop {
+    0% { transform: translate(0, 0) scale(0.3); opacity: 0; }
+    30% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 1; }
+    100% { transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) + 12px)) scale(0); opacity: 0; }
+}
+
+/* =========================================================
+   6. DUSZEK / ROZPŁYNIĘCIE (GHOST)
+   ========================================================= */
+.hit-fx-box.fx-ghost .fx-icon-actor {
+    animation: ghostFly 0.85s ease-out forwards;
+    transform-origin: center center;
+}
+
+@keyframes ghostFly {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    20% { transform: translateY(-8px) scale(1.15) rotate(-6deg); opacity: 0.9; }
+    45% { transform: translateY(-28px) scale(1.1) rotate(6deg); opacity: 0.75; filter: drop-shadow(0 0 8px #FFD700); }
+    70% { transform: translateY(-55px) scale(0.9) rotate(-8deg); opacity: 0.5; }
+    100% { transform: translateY(-90px) scale(0.5) rotate(8deg); opacity: 0; }
+}
+
+.hit-fx-box.fx-ghost .fx-halo {
+    position: absolute;
+    top: -12px;
+    font-size: 15px;
+    animation: haloFloat 0.85s ease-out forwards;
+}
+
+@keyframes haloFloat {
+    0% { transform: translateY(0) scale(0.2); opacity: 0; }
+    25% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+    70% { transform: translateY(-48px) scale(1); opacity: 0.8; }
+    100% { transform: translateY(-80px) scale(0.6); opacity: 0; }
+}
+
+/* =========================================================
+   AKCENTY W INTERFEJSIE (LISTA ZADAŃ I KOMUNIKAT)
+   ========================================================= */
+#tasklist li.done.just-done {
+    animation: tasklistDoneFlash 0.65s ease-out;
+}
+
+@keyframes tasklistDoneFlash {
+    0% {
+        transform: scale(1.06);
+        background: #a8f5a8;
+        color: #155724;
+        font-weight: 700;
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
+    }
+    50% {
+        transform: scale(1.02);
+        background: #d4edda;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.msg-hit {
+    animation: msgHitBounce 0.45s ease-out;
+}
+
+@keyframes msgHitBounce {
+    0% {
+        transform: scale(0.85);
+        color: #28a745 !important;
+        text-shadow: 0 2px 10px rgba(40, 167, 69, 0.4);
+    }
+    50% {
+        transform: scale(1.18);
+        color: #28a745 !important;
+    }
+    100% {
+        transform: scale(1);
+        color: #28a745 !important;
+    }
+}
