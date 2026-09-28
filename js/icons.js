@@ -22,6 +22,11 @@ const geoTypeIcon = {
   "Pustynia":   { cls: "color-pustynia",   file: "icons/pustynia.svg" },
   "Kanał":      { cls: "color-kanal",      file: "icons/kanal.svg" },
   "Szczyt":      { cls: "color-szczyt",      file: "icons/szczyt.svg" },
+  "Kontynent":  { cls: "color-kontynent",  file: "icons/kontynent.svg" },
+  "Archipelag": { cls: "color-wyspa",      file: "icons/wyspa.svg" },
+  "Basen":      { cls: "color-kotlina",    file: "icons/kotlina.svg" },
+  "Rafa":       { cls: "color-morze",      file: "icons/morze.svg" },
+  "Obszar":     { cls: "color-nizina",     file: "icons/nizina.svg" },
 };
 
 // Dynamiczny generator HTML <img> z odpowiednią klasą CSS

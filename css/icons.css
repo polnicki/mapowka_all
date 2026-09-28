@@ -26,3 +26,5 @@
 .icon-geopoint.color-przyladek { filter: drop-shadow(0 0 0 #FFD700); }
 .icon-geopoint.color-pustynia  { filter: drop-shadow(0 0 0 #F7B32B); }
 .icon-geopoint.color-kanal     { filter: drop-shadow(0 0 0 #8B008B); }
+.icon-geopoint.color-szczyt     { filter: drop-shadow(0 0 0 #3a143a); }
+.icon-geopoint.color-kontynent  { filter: drop-shadow(0 0 0 #2ECC40); }
