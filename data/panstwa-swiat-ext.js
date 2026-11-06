@@ -1,0 +1,22 @@
+window.panstwaData = [
+    { country: "Polska", capital: "Warszawa", cLat: 52.0, cLng: 19.5, capLat: 52.23, capLng: 21.01 },
+    { country: "Niemcy", capital: "Berlin", cLat: 51.16, cLng: 10.45, capLat: 52.52, capLng: 13.40 },
+    { country: "Francja", capital: "Paryż", cLat: 46.6, cLng: 2.3, capLat: 48.85, capLng: 2.35 },
+    { country: "Włochy", capital: "Rzym", cLat: 42.5, cLng: 12.5, capLat: 41.90, capLng: 12.49 },
+    { country: "Hiszpania", capital: "Madryt", cLat: 40.0, cLng: -3.7, capLat: 40.41, capLng: -3.70 },
+    { country: "Wielka Brytania", capital: "Londyn", cLat: 54.0, cLng: -2.0, capLat: 51.50, capLng: -0.12 },
+    { country: "Szwecja", capital: "Sztokholm", cLat: 62.0, cLng: 15.0, capLat: 59.32, capLng: 18.06 },
+    { country: "Norwegia", capital: "Oslo", cLat: 61.0, cLng: 8.0, capLat: 59.91, capLng: 10.75 },
+    { country: "Chiny", capital: "Pekin", cLat: 35.8, cLng: 104.1, capLat: 39.90, capLng: 116.40 },
+    { country: "Japonia", capital: "Tokio", cLat: 36.2, cLng: 138.2, capLat: 35.67, capLng: 139.65 },
+    { country: "Indie", capital: "New Delhi", cLat: 20.5, cLng: 78.9, capLat: 28.61, capLng: 77.20 },
+    { country: "Korea Południowa", capital: "Seul", cLat: 35.9, cLng: 127.7, capLat: 37.56, capLng: 126.97 },
+    { country: "Stany Zjednoczone", capital: "Waszyngton", cLat: 37.09, cLng: -95.7, capLat: 38.89, capLng: -77.03 },
+    { country: "Kanada", capital: "Ottawa", cLat: 56.1, cLng: -106.3, capLat: 45.42, capLng: -75.69 },
+    { country: "Meksyk", capital: "Meksyk", cLat: 23.6, cLng: -102.5, capLat: 19.43, capLng: -99.13 },
+    { country: "Brazylia", capital: "Brasília", cLat: -14.2, cLng: -51.9, capLat: -15.78, capLng: -47.92 },
+    { country: "Argentyna", capital: "Buenos Aires", cLat: -38.4, cLng: -63.6, capLat: -34.60, capLng: -58.38 },
+    { country: "Egipt", capital: "Kair", cLat: 26.8, cLng: 30.8, capLat: 30.04, capLng: 31.23 },
+    { country: "RPA", capital: "Pretoria", cLat: -30.5, cLng: 22.9, capLat: -25.74, capLng: 28.18 },
+    { country: "Australia", capital: "Canberra", cLat: -25.2, cLng: 133.7, capLat: -35.28, capLng: 149.13 }
+];
