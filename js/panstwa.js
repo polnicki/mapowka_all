@@ -159,10 +159,10 @@ function startGame() {
     version = document.getElementById('mapVersion').value;
     showNames = document.getElementById("showNames").checked;
 
-    // Sprawdzian zawsze ze stolicami
+    // Sprawdzian zawsze miks: państwa i stolice
     if (region === 'sprawdzian') {
-        quizMode = 'stolice';
-        document.getElementById('quizMode').value = 'stolice';
+        quizMode = 'miks';
+        document.getElementById('quizMode').value = 'miks';
     }
 
     loadObiekty(region, version, showNames, () => {
