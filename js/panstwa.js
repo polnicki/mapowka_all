@@ -30,7 +30,8 @@ function setMapView(region_) {
         "ameryka-pn": {center: [40, -100], zoom: 3},
         "ameryka-pd": {center: [-15, -60], zoom: 3},
         australia: {center: [-25, 135], zoom: 4},
-        swiat: {center: [20, 10], zoom: 2}
+        swiat: {center: [20, 10], zoom: 2},
+        sprawdzian: {center: [50, 10], zoom: 3}
     };
     const v = views[region_] || views.europa;
     map.setView(v.center, v.zoom);
@@ -108,7 +109,12 @@ function shuffle(array) {
 }
 
 function loadObiekty(region_, version_, showNames_, callback) {
-    const filename = `data/panstwa-${region_}${version_ === 'ext' ? '-ext' : ''}.js`;
+    let filename;
+    if (region_ === 'sprawdzian') {
+        filename = 'data/panstwa-sprawdzian-ext.js';
+    } else {
+        filename = `data/panstwa-${region_}${version_ === 'ext' ? '-ext' : ''}.js`;
+    }
     const oldScript = document.getElementById('obiektyScript');
     if (oldScript) oldScript.remove();
 
@@ -436,7 +442,8 @@ const regionNames = {
     "ameryka-pn": "Ameryka Północna",
     "ameryka-pd": "Ameryka Południowa",
     australia: "Australia i Oceania",
-    swiat: "Świat"
+    swiat: "Świat",
+    sprawdzian: "Sprawdzian"
 };
 
 const modeNames = {
