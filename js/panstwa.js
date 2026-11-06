@@ -483,4 +483,64 @@ function escapeHtml(text) {
     return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+function renderCurrentScores(scores, region_, mode_, version_) {
+    let wersjaLabel = version_ === "ext" ? "Rozszerzona" : "Podstawowa";
+    let regionLabel = regionNames[region_] || region_;
+    let modeLabel = modeNames[mode_] || mode_;
+
+    let html = `<small style="color:#666; display:block; margin-bottom:6px;">${regionLabel} · ${modeLabel} · ${wersjaLabel}</small>`;
+
+    if (!scores || !scores.length) {
+        html += `<div style="padding:8px; color:#888; font-size:0.9em;">Brak wyników dla tej konfiguracji.</div>`;
+        document.getElementById("currentScoresTable").innerHTML = html;
+        return;
+    }
+
+    scores.sort((a,b) => {
+        if (b.punkty !== a.punkty) return b.punkty - a.punkty;
+        return a.time - b.time;
+    });
+
+    const top = scores.slice(0, 5);
+    html += `<table style="width:100%; font-size:0.9em; border-collapse:collapse;">`;
+    html += `<tr><th style="text-align:left; padding:4px 0; color:#0074D9;">Gracz</th><th style="text-align:left; padding:4px 0; color:#0074D9;">Punkty</th><th style="text-align:left; padding:4px 0; color:#0074D9;">Czas</th></tr>`;
+    top.forEach((s) => {
+        html += `<tr>
+            <td style="padding:2px 0; border-bottom:1px solid #e0f7fa;">${escapeHtml(s.name)}</td>
+            <td style="padding:2px 0; border-bottom:1px solid #e0f7fa;"><b>${s.punkty}</b></td>
+            <td style="padding:2px 0; border-bottom:1px solid #e0f7fa;">${s.time}s</td>
+        </tr>`;
+    });
+    html += `</table>`;
+    document.getElementById("currentScoresTable").innerHTML = html;
+}
+
+function loadCurrentScores() {
+    const container = document.getElementById("currentScoresTable");
+    if (!container) return;
+    container.innerHTML = "Ładowanie...";
+
+    const region_ = document.getElementById('mapRegion').value;
+    const mode_ = document.getElementById('quizMode').value;
+    const version_ = document.getElementById('mapVersion').value;
+
+    db.ref("scores/panstwa/" + region_ + "/" + mode_ + "/" + version_).orderByChild("punkty").limitToLast(10).once("value", snap => {
+        const vals = [];
+        snap.forEach(child => {
+            vals.push(child.val());
+        });
+        renderCurrentScores(vals, region_, mode_, version_);
+    }).catch(() => {
+        container.innerHTML = `<div style="padding:8px; color:#888; font-size:0.9em;">Brak dostępu do bazy wyników.</div>`;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadCurrentScores();
+
+    document.getElementById('mapRegion').addEventListener('change', loadCurrentScores);
+    document.getElementById('quizMode').addEventListener('change', loadCurrentScores);
+    document.getElementById('mapVersion').addEventListener('change', loadCurrentScores);
+});
+
 document.getElementById("startBtn").onclick = startGame;
