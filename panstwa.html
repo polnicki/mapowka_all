@@ -19,51 +19,6 @@
 <div id="main">
     <div id="map"></div>
     <div id="sidebar">
-        <div id="mapSelect" style="flex-direction:column; align-items:stretch; gap:10px; margin-bottom:12px;">
-            <div>
-                <label for="mapRegion">Kontynent:</label>
-                <select id="mapRegion" style="width:100%; padding:6px; border-radius:8px; border:1px solid #c2e9fb; margin-top:4px;">
-                    <option value="europa">Europa</option>
-                    <option value="azja">Azja</option>
-                    <option value="afryka">Afryka</option>
-                    <option value="ameryka-pn">Ameryka Północna</option>
-                    <option value="ameryka-pd">Ameryka Południowa</option>
-                    <option value="australia">Australia i Oceania</option>
-                    <option value="swiat">Świat (wybrane)</option>
-                </select>
-            </div>
-            <div>
-                <label for="quizMode">Tryb zadania:</label>
-                <select id="quizMode" style="width:100%; padding:6px; border-radius:8px; border:1px solid #c2e9fb; margin-top:4px;">
-                    <option value="panstwa">🏳️ Zgadywanie Państw</option>
-                    <option value="stolice">⭐ Zgadywanie Stolic</option>
-                    <option value="miks">🌐 Miks (Państwa i Stolice)</option>
-                </select>
-            </div>
-            <div>
-                <label for="mapVersion">Wersja:</label>
-                <select id="mapVersion" style="width:100%; padding:6px; border-radius:8px; border:1px solid #c2e9fb; margin-top:4px;">
-                    <option value="basic">Podstawowa</option>
-                    <option value="ext">Rozszerzona</option>
-                </select>
-            </div>
-        </div>
-        <div id="currentScores" style="margin-top:12px; padding:12px; background:#f9faff; border-radius:12px; border:1px solid #c2e9fb;">
-            <h3 style="margin:0 0 8px 0; font-size:1em; color:#0074D9;">🏆 Najlepsze wyniki (ta konfiguracja)</h3>
-            <div id="currentScoresTable">Ładowanie...</div>
-        </div>
-        <div id="animSelectBox" style="margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; font-size:0.95em;">
-            <label for="animTypeSelect" style="font-size:0.92em; font-weight:600; color:#FF4136;">Efekt trafienia:</label>
-            <select id="animTypeSelect" style="border-radius:8px; border:1px solid #c2e9fb; padding:4px 8px; font-size:0.9em; background:#f9faff; color:#FF4136; font-weight:600; cursor:pointer;">
-                <option value="random">🎲 Losowo (wszystkie)</option>
-                <option value="shatter">💥 Rozpad na kawałki</option>
-                <option value="pop">🎈 Komiczny balonik</option>
-                <option value="vortex">🌀 Zwariowany wir</option>
-                <option value="rocket">🚀 Wystrzał w kosmos</option>
-                <option value="splat">🥞 Skok i plask</option>
-                <option value="ghost">👻 Duszek</option>
-            </select>
-        </div>
         <div id="nameEntry">
             <label for="playerName">Imię gracza:</label>
             <input type="text" id="playerName" maxlength="32" list="disneyNames" placeholder="np. Elsa, Mikki, Vaiana...">
@@ -115,6 +70,51 @@
         <div id="ranking" style="display:none;">
             <h2>Najlepsze czasy i punkty</h2>
             <div id="rankingTable">Ładowanie...</div>
+        </div>
+        <div id="mapSelect" style="flex-direction:column; align-items:stretch; gap:10px; margin-bottom:12px;">
+            <div>
+                <label for="mapRegion">Kontynent:</label>
+                <select id="mapRegion" style="width:100%; padding:6px; border-radius:8px; border:1px solid #c2e9fb; margin-top:4px;">
+                    <option value="europa">Europa</option>
+                    <option value="azja">Azja</option>
+                    <option value="afryka">Afryka</option>
+                    <option value="ameryka-pn">Ameryka Północna</option>
+                    <option value="ameryka-pd">Ameryka Południowa</option>
+                    <option value="australia">Australia i Oceania</option>
+                    <option value="swiat">Świat (wybrane)</option>
+                </select>
+            </div>
+            <div>
+                <label for="quizMode">Tryb zadania:</label>
+                <select id="quizMode" style="width:100%; padding:6px; border-radius:8px; border:1px solid #c2e9fb; margin-top:4px;">
+                    <option value="panstwa">🏳️ Zgadywanie Państw</option>
+                    <option value="stolice">⭐ Zgadywanie Stolic</option>
+                    <option value="miks">🌐 Miks (Państwa i Stolice)</option>
+                </select>
+            </div>
+            <div>
+                <label for="mapVersion">Wersja:</label>
+                <select id="mapVersion" style="width:100%; padding:6px; border-radius:8px; border:1px solid #c2e9fb; margin-top:4px;">
+                    <option value="basic">Podstawowa</option>
+                    <option value="ext">Rozszerzona</option>
+                </select>
+            </div>
+        </div>
+        <div id="currentScores" style="margin-top:12px; padding:12px; background:#f9faff; border-radius:12px; border:1px solid #c2e9fb;">
+            <h3 style="margin:0 0 8px 0; font-size:1em; color:#0074D9;">🏆 Najlepsze wyniki (ta konfiguracja)</h3>
+            <div id="currentScoresTable">Ładowanie...</div>
+        </div>
+        <div id="animSelectBox" style="margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; font-size:0.95em;">
+            <label for="animTypeSelect" style="font-size:0.92em; font-weight:600; color:#FF4136;">Efekt trafienia:</label>
+            <select id="animTypeSelect" style="border-radius:8px; border:1px solid #c2e9fb; padding:4px 8px; font-size:0.9em; background:#f9faff; color:#FF4136; font-weight:600; cursor:pointer;">
+                <option value="random">🎲 Losowo (wszystkie)</option>
+                <option value="shatter">💥 Rozpad na kawałki</option>
+                <option value="pop">🎈 Komiczny balonik</option>
+                <option value="vortex">🌀 Zwariowany wir</option>
+                <option value="rocket">🚀 Wystrzał w kosmos</option>
+                <option value="splat">🥞 Skok i plask</option>
+                <option value="ghost">👻 Duszek</option>
+            </select>
         </div>
     </div>
 </div>
