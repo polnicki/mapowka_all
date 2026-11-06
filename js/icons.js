@@ -23,6 +23,8 @@ const geoTypeIcon = {
   "Kanał":      { cls: "color-kanal",      file: "icons/kanal.svg" },
   "Szczyt":      { cls: "color-szczyt",      file: "icons/szczyt.svg" },
   "Kontynent":  { cls: "color-kontynent",  file: "icons/kontynent.svg" },
+  "Państwo":    { cls: "color-panstwo",    file: "icons/panstwo.svg" },
+  "Stolica":    { cls: "color-stolica",    file: "icons/stolica.svg" },
   "Archipelag": { cls: "color-wyspa",      file: "icons/wyspa.svg" },
   "Basen":      { cls: "color-kotlina",    file: "icons/kotlina.svg" },
   "Rafa":       { cls: "color-morze",      file: "icons/morze.svg" },

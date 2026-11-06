@@ -1,0 +1,22 @@
+window.panstwaData = [
+    { country: "Polska", capital: "Warszawa", cLat: 52.0, cLng: 19.5, capLat: 52.23, capLng: 21.01 },
+    { country: "Niemcy", capital: "Berlin", cLat: 51.16, cLng: 10.45, capLat: 52.52, capLng: 13.40 },
+    { country: "Francja", capital: "Paryż", cLat: 46.6, cLng: 2.3, capLat: 48.85, capLng: 2.35 },
+    { country: "Włochy", capital: "Rzym", cLat: 42.5, cLng: 12.5, capLat: 41.90, capLng: 12.49 },
+    { country: "Hiszpania", capital: "Madryt", cLat: 40.0, cLng: -3.7, capLat: 40.41, capLng: -3.70 },
+    { country: "Wielka Brytania", capital: "Londyn", cLat: 54.0, cLng: -2.0, capLat: 51.50, capLng: -0.12 },
+    { country: "Szwecja", capital: "Sztokholm", cLat: 62.0, cLng: 15.0, capLat: 59.32, capLng: 18.06 },
+    { country: "Norwegia", capital: "Oslo", cLat: 61.0, cLng: 8.0, capLat: 59.91, capLng: 10.75 },
+    { country: "Finlandia", capital: "Helsinki", cLat: 64.0, cLng: 26.0, capLat: 60.16, capLng: 24.94 },
+    { country: "Ukraina", capital: "Kijów", cLat: 49.0, cLng: 31.0, capLat: 50.45, capLng: 30.52 },
+    { country: "Grecja", capital: "Ateny", cLat: 39.0, cLng: 22.0, capLat: 37.98, capLng: 23.72 },
+    { country: "Portugalia", capital: "Lizbona", cLat: 39.5, cLng: -8.0, capLat: 38.72, capLng: -9.13 },
+    { country: "Czechy", capital: "Praga", cLat: 49.8, cLng: 15.5, capLat: 50.07, capLng: 14.43 },
+    { country: "Słowacja", capital: "Bratysława", cLat: 48.7, cLng: 19.5, capLat: 48.14, capLng: 17.10 },
+    { country: "Austria", capital: "Wiedeń", cLat: 47.5, cLng: 14.5, capLat: 48.20, capLng: 16.37 },
+    { country: "Szwajcaria", capital: "Berno", cLat: 46.8, cLng: 8.2, capLat: 46.94, capLng: 7.44 },
+    { country: "Holandia", capital: "Amsterdam", cLat: 52.2, cLng: 5.3, capLat: 52.36, capLng: 4.90 },
+    { country: "Belgia", capital: "Bruksela", cLat: 50.5, cLng: 4.5, capLat: 50.85, capLng: 4.35 },
+    { country: "Dania", capital: "Kopenhaga", cLat: 56.0, cLng: 10.0, capLat: 55.67, capLng: 12.56 },
+    { country: "Węgry", capital: "Budapeszt", cLat: 47.1, cLng: 19.5, capLat: 47.49, capLng: 19.04 }
+];

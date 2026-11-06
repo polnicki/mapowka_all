@@ -1,0 +1,22 @@
+window.panstwaData = [
+    { country: "Chiny", capital: "Pekin", cLat: 35.8, cLng: 104.1, capLat: 39.90, capLng: 116.40 },
+    { country: "Japonia", capital: "Tokio", cLat: 36.2, cLng: 138.2, capLat: 35.67, capLng: 139.65 },
+    { country: "Indie", capital: "New Delhi", cLat: 20.5, cLng: 78.9, capLat: 28.61, capLng: 77.20 },
+    { country: "Korea Południowa", capital: "Seul", cLat: 35.9, cLng: 127.7, capLat: 37.56, capLng: 126.97 },
+    { country: "Indonezja", capital: "Dżakarta", cLat: -0.78, cLng: 113.9, capLat: -6.20, capLng: 106.84 },
+    { country: "Wietnam", capital: "Hanoi", cLat: 14.0, cLng: 108.2, capLat: 21.02, capLng: 105.83 },
+    { country: "Tajlandia", capital: "Bangkok", cLat: 15.8, cLng: 100.9, capLat: 13.75, capLng: 100.50 },
+    { country: "Turcja", capital: "Ankara", cLat: 38.9, cLng: 35.2, capLat: 39.93, capLng: 32.85 },
+    { country: "Arabia Saudyjska", capital: "Rijad", cLat: 23.8, cLng: 45.0, capLat: 24.71, capLng: 46.67 },
+    { country: "Izrael", capital: "Jerozolima", cLat: 31.0, cLng: 34.8, capLat: 31.76, capLng: 35.21 },
+    { country: "Iran", capital: "Teheran", cLat: 32.4, cLng: 53.6, capLat: 35.68, capLng: 51.38 },
+    { country: "Irak", capital: "Bagdad", cLat: 33.2, cLng: 43.6, capLat: 33.31, capLng: 44.36 },
+    { country: "Kazachstan", capital: "Astana", cLat: 48.0, cLng: 66.9, capLat: 51.16, capLng: 71.47 },
+    { country: "Pakistan", capital: "Islamabad", cLat: 30.3, cLng: 69.3, capLat: 33.68, capLng: 73.04 },
+    { country: "Filipiny", capital: "Manila", cLat: 12.8, cLng: 121.7, capLat: 14.59, capLng: 120.98 },
+    { country: "Malezja", capital: "Kuala Lumpur", cLat: 4.2, cLng: 101.9, capLat: 3.13, capLng: 101.68 },
+    { country: "Zjednoczone Emiraty Arabskie", capital: "Abu Zabi", cLat: 23.4, cLng: 53.8, capLat: 24.45, capLng: 54.37 },
+    { country: "Singapur", capital: "Singapur", cLat: 1.35, cLng: 103.8, capLat: 1.35, capLng: 103.81 },
+    { country: "Gruzja", capital: "Tbilisi", cLat: 42.3, cLng: 43.3, capLat: 41.71, capLng: 44.82 },
+    { country: "Mongolia", capital: "Ułan Bator", cLat: 46.8, cLng: 103.8, capLat: 47.88, capLng: 106.90 }
+];
