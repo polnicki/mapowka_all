@@ -16,7 +16,7 @@ window.obiekty = [];
 window.panstwaData = [];
 
 var map = L.map('map').setView([54, 15], 4);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_53ep_1_2a8fc576dd606b500308b16b', {
     attribution: '© OpenStreetMap contributors © CARTO',
     subdomains: 'abcd',
     maxZoom: 19
