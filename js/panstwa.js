@@ -107,7 +107,7 @@ function shuffle(array) {
     return a;
 }
 
-function loadObiekty(region_, version_, callback) {
+function loadObiekty(region_, version_, showNames_, callback) {
     const filename = `data/panstwa-${region_}${version_ === 'ext' ? '-ext' : ''}.js`;
     const oldScript = document.getElementById('obiektyScript');
     if (oldScript) oldScript.remove();
@@ -126,7 +126,11 @@ function loadObiekty(region_, version_, callback) {
                     window.obiekty.push([item.country, item.cLat, item.cLng, "Państwo"]);
                 }
                 if (quizMode === 'stolice' || quizMode === 'miks') {
-                    window.obiekty.push([item.capital + " (" + item.country + ")", item.capLat, item.capLng, "Stolica"]);
+                    let stolicaName = item.capital;
+                    if (showNames_) {
+                        stolicaName = item.capital + " (" + item.country + ")";
+                    }
+                    window.obiekty.push([stolicaName, item.capLat, item.capLng, "Stolica"]);
                 }
             });
         }
@@ -147,8 +151,9 @@ function startGame() {
     region = document.getElementById('mapRegion').value;
     quizMode = document.getElementById('quizMode').value;
     version = document.getElementById('mapVersion').value;
+    showNames = document.getElementById("showNames").checked;
 
-    loadObiekty(region, version, () => {
+    loadObiekty(region, version, showNames, () => {
         setMapView(region);
         document.getElementById("nameEntry").style.display = "none";
         document.getElementById("timer").style.display = "";
@@ -163,7 +168,6 @@ function startGame() {
         currentIdx = null;
         selectedName = null;
         allowClick = false;
-        showNames = document.getElementById("showNames").checked;
         started = true;
         time = 0;
         trafienia = 0;
