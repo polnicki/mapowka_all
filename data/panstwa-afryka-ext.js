@@ -48,5 +48,8 @@ window.panstwaData = [
     { country: "Zambia", capital: "Lusaka", cLat: -13.1, cLng: 27.8, capLat: -15.38, capLng: 28.32 },
     { country: "Zimbabwe", capital: "Harare", cLat: -19.0, cLng: 29.1, capLat: -17.82, capLng: 31.05 },
     { country: "Wybrzeże Kości Słoniowej", capital: "Jamusukro", cLat: 7.5, cLng: -5.5, capLat: 6.82, capLng: -5.27 },
-    { country: "Egipt", capital: "Kair", cLat: 26.8, cLng: 30.8, capLat: 30.04, capLng: 31.23 }
+    { country: "Egipt", capital: "Kair", cLat: 26.8, cLng: 30.8, capLat: 30.04, capLng: 31.23 },
+    { country: "Wyspy Zielonego Przylądka", capital: "Praia", cLat: 16.0, cLng: -24.0, capLat: 14.93, capLng: -23.51 },
+    { country: "Dżibuti", capital: "Dżibuti", cLat: 11.8, cLng: 42.5, capLat: 11.58, capLng: 43.14 },
+    { country: "Święty Tomasz i Książęca", capital: "São Tomé", cLat: 0.1, cLng: 6.6, capLat: 0.33, capLng: 6.73 }
 ];
