@@ -57,9 +57,9 @@ window.panstwaData = [
     // --- EGIPET ---
     { country: "Egipt", capital: "Kair", cLat: 26.8, cLng: 30.8, capLat: 30.04, capLng: 31.23 },
     // --- RPA (3 stolice) ---
-    { country: "Republika Południowej Afryki", capital: "Pretoria", cLat: -30.5, cLng: 22.9, capLat: -25.74, capLng: 28.18 },
-    { country: "Republika Południowej Afryki", capital: "Kapsztad", cLat: -30.5, cLng: 22.9, capLat: -33.92, capLng: 18.42 },
-    { country: "Republika Południowej Afryki", capital: "Bloemfontein", cLat: -30.5, cLng: 22.9, capLat: -29.09, capLng: 26.17 },
+    { country: "Republika Południowej Afryki", capital: "Pretoria", cLat: -25.74, cLng: 28.18, capLat: -25.74, capLng: 28.18 },
+    { country: "Republika Południowej Afryki", capital: "Kapsztad", cLat: -33.92, cLng: 18.42, capLat: -33.92, capLng: 18.42 },
+    { country: "Republika Południowej Afryki", capital: "Bloemfontein", cLat: -29.09, cLng: 26.17, capLat: -29.09, capLng: 26.17 },
     // --- AUSTRALIA ---
     { country: "Australia", capital: "Canberra", cLat: -25.2, cLng: 133.7, capLat: -35.28, capLng: 149.13 },
     // --- JAPONIA ---
