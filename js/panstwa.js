@@ -367,8 +367,43 @@ function markerClicked(idx) {
         renderMarkers();
         renderTaskList();
     } else {
-        pomylki++;
-        document.getElementById("msg").innerHTML = `<span style="color:#FF4136;">Błędny wybór (${p[0]}). Szukaj dalej: <b>${selectedName}</b></span>`;
+        // Wyjątek dla RPA: jeśli zadanie to państwo RPA, a kliknięto stolica RPA (Pretoria, Kapsztad, Bloemfontein)
+        const current = window.obiekty[currentIdx];
+        const rpaCapitals = ["Pretoria", "Kapsztad", "Bloemfontein"];
+        if (current && current[3] === "Państwo" && current[0] === "Republika Południowej Afryki" &&
+            p[3] === "Stolica" && rpaCapitals.includes(p[0])) {
+            trafienia++;
+            allowClick = false;
+            lastHitIdx = currentIdx;
+            animateHit(current[1], current[2], current[3], current[0]);
+
+            const posIdx = pozostale.indexOf(currentIdx);
+            if (posIdx > -1) pozostale.splice(posIdx, 1);
+            donePoints.unshift(currentIdx);
+
+            document.getElementById("msg").innerHTML = `<span style="color:#2ECC40;">Trafiono: <b>${current[0]}</b> (stolica: ${p[0]})!</span>`;
+
+            if (pozostale.length > 0) {
+                currentIdx = pozostale[0];
+                selectName(currentIdx);
+            } else {
+                currentIdx = null;
+                selectedName = null;
+                stopTimer();
+                document.getElementById("msg").innerHTML = `<span style="color:#0074D9; font-size:1.2em;">Gratulacje! Ukończyłeś zadanie w czasie ${time}s! 🏆</span>`;
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("restart").style.display = "";
+                document.getElementById("endNow").disabled = true;
+                document.getElementById("ranking").style.display = "";
+                started = false;
+                submitScore(playerName, trafienia, time, trafienia, pomylki, liczbaObiektow, region, quizMode, version);
+            }
+            renderMarkers();
+            renderTaskList();
+        } else {
+            pomylki++;
+            document.getElementById("msg").innerHTML = `<span style="color:#FF4136;">Błędny wybór (${p[0]}). Szukaj dalej: <b>${selectedName}</b></span>`;
+        }
     }
 }
 
