@@ -103,7 +103,7 @@ function renderMarkers() {
     markers = [];
     window.obiekty.forEach((p, idx) => {
         if (!pozostale.includes(idx)) return;
-        const marker = L.marker([p[1], p[2]], { icon: icon(p[3], p[4]) });
+        const marker = L.marker([p[1], p[2]], { icon: icon(p[3]) });
         marker.addTo(map)
             .on("click", () => markerClicked(idx))
             .on("touchstart", () => markerClicked(idx));
