@@ -15,6 +15,58 @@ let liczbaObiektow = 0;
 window.obiekty = [];
 window.panstwaData = [];
 
+// Kod ISO 3166-1 alpha-2 dla każdego państwa z danych (używany do mini flagi z flagcdn.com)
+const KOD_PANSTWA = {
+  "Afganistan": "af", "Albania": "al", "Algieria": "dz", "Andora": "ad", "Angola": "ao",
+  "Antigua i Barbuda": "ag", "Arabia Saudyjska": "sa", "Argentyna": "ar", "Armenia": "am", "Australia": "au",
+  "Austria": "at", "Azerbejdżan": "az", "Bahamy": "bs", "Bahrajn": "bh", "Bangladesz": "bd", "Barbados": "bb",
+  "Belgia": "be", "Belize": "bz", "Benin": "bj", "Bhutan": "bt", "Białoruś": "by", "Boliwia": "bo",
+  "Bośnia i Hercegowina": "ba", "Botswana": "bw", "Brazylia": "br", "Brunei": "bn", "Bułgaria": "bg",
+  "Burkina Faso": "bf", "Burundi": "bi", "Chile": "cl", "Chiny": "cn", "Chorwacja": "hr", "Cypr": "cy",
+  "Czad": "td", "Czarnogóra": "me", "Czechy": "cz", "Dania": "dk", "Demokratyczna Republika Konga": "cd",
+  "Dominika": "dm", "Dominikana": "do", "Dżibuti": "dj", "Egipt": "eg", "Ekwador": "ec", "Erytrea": "er",
+  "Estonia": "ee", "Eswatini": "sz", "Etiopia": "et", "Fidżi": "fj", "Filipiny": "ph", "Finlandia": "fi",
+  "Francja": "fr", "Gabon": "ga", "Gambia": "gm", "Ghana": "gh", "Grecja": "gr", "Grenada": "gd",
+  "Gruzja": "ge", "Gujana": "gy", "Gwatemala": "gt", "Gwinea": "gn", "Gwinea-Bissau": "gw", "Haiti": "ht",
+  "Hiszpania": "es", "Holandia": "nl", "Honduras": "hn", "Indie": "in", "Indonezja": "id", "Irak": "iq",
+  "Iran": "ir", "Irlandia": "ie", "Islandia": "is", "Izrael": "il", "Jamajka": "jm", "Japonia": "jp",
+  "Jemen": "ye", "Jordania": "jo", "Kambodża": "kh", "Kamerun": "cm", "Kanada": "ca", "Katar": "qa",
+  "Kazachstan": "kz", "Kenia": "ke", "Kirgistan": "kg", "Kiribati": "ki", "Kolumbia": "co", "Komory": "km",
+  "Kongo (Republika)": "cg", "Korea Południowa": "kr", "Korea Północna": "kp", "Kostaryka": "cr", "Kuba": "cu",
+  "Kuwejt": "kw", "Laos": "la", "Lesotho": "ls", "Liban": "lb", "Liberia": "lr", "Libia": "ly",
+  "Liechtenstein": "li", "Litwa": "lt", "Luksemburg": "lu", "Łotwa": "lv", "Madagaskar": "mg", "Malawi": "mw",
+  "Malediwy": "mv", "Malezja": "my", "Mali": "ml", "Malta": "mt", "Maroko": "ma", "Mauretania": "mr",
+  "Mauritius": "mu", "Meksyk": "mx", "Mikronezja": "fm", "Mjanma (Birma)": "mm", "Mołdawia": "md", "Monako": "mc",
+  "Mongolia": "mn", "Mozambik": "mz", "Namibia": "na", "Nauru": "nr", "Nepal": "np", "Niemcy": "de",
+  "Niger": "ne", "Nigeria": "ng", "Nikaragua": "ni", "Norwegia": "no", "Nowa Zelandia": "nz", "Oman": "om",
+  "Pakistan": "pk", "Palau": "pw", "Panama": "pa", "Papua-Nowa Gwinea": "pg", "Paragwaj": "py", "Peru": "pe",
+  "Polska": "pl", "Portugalia": "pt", "Północna Macedonia": "mk", "Republika Południowej Afryki": "za",
+  "Republika Środkowoafrykańska": "cf", "RPA": "za", "Ruanda": "rw", "Rumunia": "ro",
+  "Saint Kitts i Nevis": "kn", "Saint Lucia": "lc", "Saint Vincent i Grenadyny": "vc", "Salwador": "sv",
+  "Samoa": "ws", "San Marino": "sm", "Senegal": "sn", "Serbia": "rs", "Seszele": "sc", "Sierra Leone": "sl",
+  "Singapur": "sg", "Słowacja": "sk", "Słowenia": "si", "Somalia": "so", "Sri Lanka": "lk",
+  "Stany Zjednoczone": "us", "Sudan": "sd", "Sudan Południowy": "ss", "Surinam": "sr", "Syria": "sy",
+  "Szwajcaria": "ch", "Szwecja": "se", "Święty Tomasz i Książęca": "st", "Tadżykistan": "tj", "Tajlandia": "th",
+  "Tanzania": "tz", "Timor Wschodni": "tl", "Togo": "tg", "Tonga": "to", "Trynidad i Tobago": "tt",
+  "Tunezja": "tn", "Turcja": "tr", "Turkmenistan": "tm", "Tuvalu": "tv", "Uganda": "ug", "Ukraina": "ua",
+  "Urugwaj": "uy", "Uzbekistan": "uz", "Vanuatu": "vu", "Watykan": "va", "Wenezuela": "ve", "Węgry": "hu",
+  "Wielka Brytania": "gb", "Wietnam": "vn", "Włochy": "it", "Wybrzeże Kości Słoniowej": "ci",
+  "Wyspy Marshalla": "mh", "Wyspy Salomona": "sb", "Wyspy Zielonego Przylądka": "cv", "Zambia": "zm",
+  "Zimbabwe": "zw", "Zjednoczone Emiraty Arabskie": "ae"
+};
+
+// Godło miasta/stolicy: nazwa stolicy -> URL obrazka herbu.
+// Brak wpisu = domyślna ikona stolica.svg (spełnia "jeśli nie ma -> zostaw domyślne").
+const GODLO_MIASTA = {};
+
+function flagaURL(kraj) {
+  const kod = KOD_PANSTWA[kraj];
+  return kod ? `https://flagcdn.com/w40/${kod}.png` : null;
+}
+function godloURL(miasto) {
+  return GODLO_MIASTA[miasto] || null;
+}
+
 var map = L.map('map').setView([54, 15], 4);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png?key=cb1_53ep_1_2a8fc576dd606b500308b16b', {
     attribution: '© OpenStreetMap contributors © CARTO',
@@ -37,12 +89,12 @@ function setMapView(region_) {
     map.setView(v.center, v.zoom);
 }
 
-function icon(typ) {
+function icon(typ, src) {
     let size = (window.innerWidth < 700) ? 32 : 24;
     return L.divIcon({
         className: "custom-icon",
         iconSize: [size, size],
-        html: geoIconHTML(typ, size)
+        html: geoIconHTML(typ, size, src)
     });
 }
 
@@ -66,7 +118,7 @@ function renderTaskList() {
     pozostale.forEach(idx => {
         const typ = window.obiekty[idx][3];
         const li = document.createElement("li");
-        li.innerHTML = `${geoIconHTML(typ)}${window.obiekty[idx][0]}`;
+        li.innerHTML = `${geoIconHTML(typ, 24, window.obiekty[idx][4])}${window.obiekty[idx][0]}`;
         li.onclick = () => selectName(idx);
         li.ontouchstart = () => selectName(idx);
         li.className = (idx === currentIdx) ? "selected" : "";
@@ -75,7 +127,7 @@ function renderTaskList() {
     donePoints.forEach((idx, i) => {
         const typ = window.obiekty[idx][3];
         const li = document.createElement("li");
-        li.innerHTML = `${geoIconHTML(typ)}${window.obiekty[idx][0]}`;
+        li.innerHTML = `${geoIconHTML(typ, 24, window.obiekty[idx][4])}${window.obiekty[idx][0]}`;
         li.className = (i === 0 && lastHitIdx === idx) ? "done just-done" : "done";
         list.appendChild(li);
     });
@@ -129,14 +181,14 @@ function loadObiekty(region_, version_, showNames_, callback) {
         if (window.panstwaData) {
             window.panstwaData.forEach(item => {
                 if (quizMode === 'panstwa' || quizMode === 'miks') {
-                    window.obiekty.push([item.country, item.cLat, item.cLng, "Państwo"]);
+                    window.obiekty.push([item.country, item.cLat, item.cLng, "Państwo", flagaURL(item.country)]);
                 }
                 if (quizMode === 'stolice' || quizMode === 'miks') {
                     let stolicaName = item.capital;
                     if (showNames_) {
                         stolicaName = item.capital + " (" + item.country + ")";
                     }
-                    window.obiekty.push([stolicaName, item.capLat, item.capLng, "Stolica"]);
+                    window.obiekty.push([stolicaName, item.capLat, item.capLng, "Stolica", godloURL(item.capital)]);
                 }
             });
         }

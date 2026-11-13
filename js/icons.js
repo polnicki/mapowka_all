@@ -32,7 +32,10 @@ const geoTypeIcon = {
 };
 
 // Dynamiczny generator HTML <img> z odpowiednią klasą CSS
-function geoIconHTML(typ, size=24) {
+function geoIconHTML(typ, size=24, src) {
+  if (src) {
+    return `<img class="icon-geopoint icon-obraz" src="${src}" style="width:${size}px;height:${size}px;" alt="${typ}">`;
+  }
   const icon = geoTypeIcon[typ] || geoTypeIcon["domyslna"];
   return `<img class="icon-geopoint ${icon.cls}" src="${icon.file}" style="width:${size}px;height:${size}px;" alt="${typ}">`;
 }
